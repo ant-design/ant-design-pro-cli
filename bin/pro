@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const program = require('commander');
+const pkg = require('../package.json');
+
+const newCli = require('../lib/new');
+
+program.version(pkg.version)
+  .option('new', 'create template')
+  .parse(process.argv);
+
+if (program.new) {
+  newCli(process.argv);
+}

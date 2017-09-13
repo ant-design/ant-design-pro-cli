@@ -1,0 +1,30 @@
+{
+  "name": "ant-design-pro-cli",
+  "version": "0.0.1",
+  "description": "The command tool for ant design pro",
+  "bin": {
+    "pro": "./bin/pro"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ant-design/ant-design-pro-cli"
+  },
+  "licenses": "MIT",
+  "dependencies": {
+    "archiver": "^2.0.3",
+    "bisheng": "^0.24.2",
+    "chalk": "^2.1.0",
+    "commander": "^2.11.0",
+    "css-split-webpack-plugin": "^0.2.3",
+    "fs-extra": "^4.0.1",
+    "inquirer": "^3.2.2",
+    "require": "^2.4.20",
+    "unzip2": "^0.2.5"
+  },
+  "devDependencies": {},
+  "files": [
+    "bin",
+    "boilerplate",
+    "lib"
+  ]
+}
