@@ -1,26 +1,30 @@
-## Cli for Ant Design Pro
+# Cli for Ant Design Pro [![Build Status](https://img.shields.io/circleci/project/ant-design/test2-cli/master.svg)](https://circleci.com/gh/ant-design/test2-cli) [![npm package](https://img.shields.io/npm/v/ant-design-pro-cli.svg)](https://www.npmjs.com/package/ant-design-pro-cli)
 
-### Feature
+A simple CLI for Ant Design Pro projects.
+
+## Feature
 
 - Standard Ant Design Pro template.
 - Interactive command line.
 - Common pages & components & models template.
 
-### Usage
+## Usage
 
-#### Install
+### Installation
+
+Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x, 8.x preferred), npm version 3+ and [Git](https://git-scm.com/).
 
 ```bash
 $ npm install ant-design-pro-cli -g
 ```
 
-#### Init Ant Design Pro template
+### Init Ant Design Pro template
 
 ```bash
 $ pro init
 ```
 
-#### Add pages / components / models to project
+### Add pages / components / models to project
 
 ```bash
 $ pro new
