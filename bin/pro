@@ -4,10 +4,16 @@ const program = require('commander');
 const pkg = require('../package.json');
 
 const newCli = require('../lib/new');
+const init = require('../lib/init');
 
 program.version(pkg.version)
+  .option('init', 'init Ant Design Pro project.')
   .option('new', 'create template')
   .parse(process.argv);
+
+if (program.init) {
+  init(process.argv);
+}
 
 if (program.new) {
   newCli(process.argv);
