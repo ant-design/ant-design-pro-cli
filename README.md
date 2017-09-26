@@ -30,4 +30,4 @@ $ pro init
 $ pro new
 ```
 
-<img width="200" src="https://user-images.githubusercontent.com/1179603/30850939-c36ce2fa-a2d9-11e7-8f69-49793bfce03a.png" />
+<img width="400" src="https://user-images.githubusercontent.com/1179603/30850939-c36ce2fa-a2d9-11e7-8f69-49793bfce03a.png" />
