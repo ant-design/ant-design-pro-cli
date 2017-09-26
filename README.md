@@ -1,4 +1,4 @@
-# Cli for Ant Design Pro [![Build Status](https://img.shields.io/circleci/project/ant-design/test2-cli/master.svg)](https://circleci.com/gh/ant-design/test2-cli) [![npm package](https://img.shields.io/npm/v/ant-design-pro-cli.svg)](https://www.npmjs.com/package/ant-design-pro-cli)
+# Cli for Ant Design Pro [![npm package](https://img.shields.io/npm/v/ant-design-pro-cli.svg)](https://www.npmjs.com/package/ant-design-pro-cli)
 
 A simple CLI for Ant Design Pro projects.
 
@@ -30,4 +30,4 @@ $ pro init
 $ pro new
 ```
 
-![image](https://user-images.githubusercontent.com/1179603/30850939-c36ce2fa-a2d9-11e7-8f69-49793bfce03a.png)
+<img width="200" src="https://user-images.githubusercontent.com/1179603/30850939-c36ce2fa-a2d9-11e7-8f69-49793bfce03a.png" />
