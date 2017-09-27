@@ -6,7 +6,7 @@ A simple CLI for Ant Design Pro projects.
 
 - Standard Ant Design Pro template.
 - Interactive command line.
-- Common pages & components & models template.
+- Common pages & components & models & services template.
 
 ## Usage
 
