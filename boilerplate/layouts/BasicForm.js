@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { Form, Input, DatePicker, Select, Button, Card } from 'antd';
 
 const FormItem = Form.Item;
-const Option = Select.Option;
+const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 @Form.create()
@@ -11,7 +11,6 @@ class BasicForms extends PureComponent {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-
       }
     });
   }
