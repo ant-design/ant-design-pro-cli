@@ -6,66 +6,86 @@ import styles from './CardList.less';
 
 function fakeList(count) {
   const titles = [
-    '凤蝶',
-    'AntDesignPro',
-    'DesignLab',
-    'Basement',
-    'AntDesign',
-    '云雀',
-    '体验云',
-    'AntDesignMobile',
+    'Alipay',
+    'Angular',
+    'Ant Design',
+    'Ant Design Pro',
+    'Bootstrap',
+    'React',
+    'Vue',
+    'Webpack',
   ];
   const avatars = [
-    'https://gw.alipayobjects.com/zos/rmsportal/hYjIZrUoBfNxOAYBVDfc.png', // 凤蝶
-    'https://gw.alipayobjects.com/zos/rmsportal/HHWPIzPLCLYmVuPivyiA.png', // 云雀
-    'https://gw.alipayobjects.com/zos/rmsportal/irqByKtOdKfDojxIWTXF.png', // Basement
-    'https://gw.alipayobjects.com/zos/rmsportal/VcmdbCBcwPTGYgbYeMzX.png', // DesignLab
+    'https://gw.alipayobjects.com/zos/rmsportal/WdGqmHpayyMjiEhcKoVE.png', // Alipay
+    'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png', // Angular
+    'https://gw.alipayobjects.com/zos/rmsportal/dURIMkkrRFpPgTuzkwnB.png', // Ant Design
+    'https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png', // Ant Design Pro
+    'https://gw.alipayobjects.com/zos/rmsportal/siCrBXXhmvTQGWPNLBow.png', // Bootstrap
+    'https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png', // React
+    'https://gw.alipayobjects.com/zos/rmsportal/ComBAopevLwENQdKWiIn.png', // Vue
+    'https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png', // Webpack
   ];
   const covers = [
-    'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/xMPpMvGSIXusgtgUPAdw.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/hQReiajgtqzIVFjLXjHp.png',
-    'https://gw.alipayobjects.com/zos/rmsportal/nczfTaXEzhSpvgZZjBev.png',
+    'https://gw.alipayobjects.com/zos/rmsportal/HrxcVbrKnCJOZvtzSqjN.png',
+    'https://gw.alipayobjects.com/zos/rmsportal/alaPpKWajEbIYEUvvVNf.png',
+    'https://gw.alipayobjects.com/zos/rmsportal/RLwlKSYGSXGHuWSojyvp.png',
+    'https://gw.alipayobjects.com/zos/rmsportal/gLaIAoVWTtLbBWZNYEMg.png',
+  ];
+  const desc = [
+    'Follow Ant Design specification.',
+    'Typical templates for enterprise applications.',
+    'Easy to use mock development solution.',
+    'Fly safely with unit test and e2e test.',
+    'Customizable theme with simple config.',
+  ];
+
+  const user = [
+    'Jake',
+    'Tom',
+    'Kobe',
+    'Alibaba',
+    'July',
+    'Andy',
+    'John',
+    'Messi',
+    'Jordan',
+    'Mach',
   ];
 
   const list = [];
   for (let i = 0; i < count; i += 1) {
     list.push({
       id: `fake-list-${i}`,
-      owner: '曲丽丽',
+      owner: user[i % 10],
       title: titles[i % 8],
-      avatar: avatars[i % 4],
-      cover: covers[i % 4],
+      avatar: avatars[i % 8],
+      cover: parseInt(i / 4, 10) % 2 === 0 ? covers[i % 4] : covers[3 - (i % 4)],
       status: ['active', 'exception', 'normal'][i % 3],
       percent: Math.ceil(Math.random() * 50) + 50,
-      logo: ['https://gw.alipayobjects.com/zos/rmsportal/KoJjkdbuTFxzJmmjuDVR.png', 'https://gw.alipayobjects.com/zos/rmsportal/UxGORCvEXJEsxOfEKZiA.png'][i % 2],
+      logo: avatars[i % 8],
       href: 'https://ant.design',
       updatedAt: new Date(new Date().getTime() - (1000 * 60 * 60 * 2 * i)),
       createdAt: new Date(new Date().getTime() - (1000 * 60 * 60 * 2 * i)),
-      subDescription: '一句话描述一句话描述',
-      description: '在中台产品的研发过程中，会出现不同的设计规范和实现方式，但其中往往存在很多类似的页面和组件，这些类似的组件会被抽离成一套标准规范。',
+      subDescription: desc[i % 5],
+      description: 'An out-of-box UI solution for enterprise applications.',
       activeUser: Math.ceil(Math.random() * 100000) + 100000,
       newUser: Math.ceil(Math.random() * 1000) + 1000,
       star: Math.ceil(Math.random() * 100) + 100,
       like: Math.ceil(Math.random() * 100) + 100,
       message: Math.ceil(Math.random() * 10) + 10,
-      content: '段落示意：蚂蚁金服设计平台 design.alipay.com，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。蚂蚁金服设计平台 design.alipay.com，用最小的工作量，无缝接入蚂蚁金服生态，提供跨越设计与开发的体验解决方案。',
+      content: 'An out-of-box UI solution for enterprise applications',
       members: [
         {
-          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WPOxPBHGyqsgKPsFtVlJ.png',
-          name: '王昭君',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/ZiESqWwCXBRQoaPONSJe.png',
+          name: 'Andy',
         },
         {
-          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WPOxPBHGyqsgKPsFtVlJ.png',
-          name: '王昭君',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/tBOxZPlITHqwlGjsJWaF.png',
+          name: 'Jake',
         },
         {
-          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WPOxPBHGyqsgKPsFtVlJ.png',
-          name: '王昭君',
-        },
-        {
-          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/WPOxPBHGyqsgKPsFtVlJ.png',
-          name: '王昭君',
+          avatar: 'https://gw.alipayobjects.com/zos/rmsportal/sBxjgqiuHMGRkIjqlQCd.png',
+          name: 'Tom',
         },
       ],
     });
@@ -94,7 +114,7 @@ export default class CardList extends PureComponent {
           renderItem={item => (item ? (
               <List.Item key={item.id}>
                 <Link to="/list/card-list">
-                  <Card actions={[<a>操作一</a>, <a>操作二</a>]}>
+                  <Card actions={[<a>action 1</a>, <a>action 2</a>]}>
                     <Card.Meta
                       avatar={<Avatar size="large" src={item.avatar} />}
                       title={item.title}
@@ -110,7 +130,7 @@ export default class CardList extends PureComponent {
               ) : (
                 <List.Item>
                   <Button type="dashed" className={styles.newButton}>
-                    <Icon type="plus" /> 新增产品
+                    <Icon type="plus" /> New
                   </Button>
                 </List.Item>
               )
