@@ -21,7 +21,7 @@ $ npm install ant-design-pro-cli -g
 ### Init Ant Design Pro template
 
 ```bash
-$ pro init
+$ pro init // will download ant-design-pro in current directory
 ```
 
 ### Add pages / components / models to project
