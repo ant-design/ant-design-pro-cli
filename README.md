@@ -27,6 +27,7 @@ $ pro init
 ### Add pages / components / models to project
 
 ```bash
+$ cd your application
 $ pro new
 ```
 
