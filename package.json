@@ -1,6 +1,6 @@
 {
   "name": "ant-design-pro-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "The command tool for ant design pro",
   "bin": {
     "pro": "./bin/pro"
@@ -21,7 +21,9 @@
     "inquirer": "^3.2.2",
     "ora": "^1.3.0",
     "require": "^2.4.20",
-    "unzip2": "^0.2.5"
+    "shelljs": "^0.7.8",
+    "unzip2": "^0.2.5",
+    "which": "^1.3.0"
   },
   "devDependencies": {},
   "files": [
