@@ -41,7 +41,7 @@ $ pro generate
   - new -> generate
   - init -> new
 
-#### 0.2.0 `bug`
+#### 0.2.0 `deprecated`
 
 - change the command
   - new -> generate
