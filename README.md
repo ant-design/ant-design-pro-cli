@@ -35,9 +35,21 @@ $ pro generate
 
 ### CHANGELOG
 
-#### 0.2.0
+#### 0.2.1 `will publish`
 
 - change the command
   - new -> generate
   - init -> new
+
+#### 0.2.0 `bug`
+
+- change the command
+  - new -> generate
+  - init -> new
+
+#### 0.1.5 `stable`
+
+- change the command
+  - init `new a Ant Design Pro scaffold`
+  - new -> `generate templates`
 
