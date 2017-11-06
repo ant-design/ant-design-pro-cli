@@ -18,17 +18,26 @@ Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x, 8.x preferred), npm ver
 $ npm install ant-design-pro-cli -g
 ```
 
-### Init Ant Design Pro template
+### New a Ant Design Pro template
 
 ```bash
-$ pro init // will download ant-design-pro in current directory
+$ pro new // will download ant-design-pro in current directory
 ```
 
-### Add pages / components / models to project
+### Generate pages / components / models to project
 
 ```bash
 $ cd your application
-$ pro new
+$ pro generate 
 ```
 
 <img width="400" src="https://user-images.githubusercontent.com/1179603/30850939-c36ce2fa-a2d9-11e7-8f69-49793bfce03a.png" />
+
+### CHANGELOG
+
+#### 0.2.0
+
+- change the command
+  - new -> generate
+  - init -> new
+
