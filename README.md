@@ -50,6 +50,6 @@ $ pro generate
 #### 0.1.5
 
 - change the command
-  - init `new a Ant Design Pro scaffold`
-  - new -> `generate templates`
+    - init `new a Ant Design Pro scaffold`
+    - new -> `generate templates`
 
