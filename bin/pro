@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const program = require('commander');
+const chalk = require('chalk');
 const pkg = require('../package.json');
 
 const newCli = require('../lib/new');
@@ -8,8 +9,13 @@ const generateCli = require('../lib/generate');
 
 program.version(pkg.version)
   .option('new', 'new a Ant Design Pro project.')
+  .option('init', '`init` is deprecated, please use `new`')
   .option('generate', 'generate template')
   .parse(process.argv);
+
+if (program.init) {
+  console.log(chalk.red('`init` is deprecated, please use `new`'));
+}
 
 if (program.new) {
   newCli(process.argv);

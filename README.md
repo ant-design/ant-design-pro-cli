@@ -31,11 +31,11 @@ $ cd your application
 $ pro generate 
 ```
 
-<img width="400" src="https://user-images.githubusercontent.com/1179603/30850939-c36ce2fa-a2d9-11e7-8f69-49793bfce03a.png" />
+<img width="400" src="https://gw.alipayobjects.com/zos/rmsportal/VhiILFUpYxGUBgbnuUny.png" />
 
 ### CHANGELOG
 
-#### 0.2.1 `will publish`
+#### 0.2.1
 
 - change the command
   - new -> generate
@@ -47,7 +47,7 @@ $ pro generate
   - new -> generate
   - init -> new
 
-#### 0.1.5 `stable`
+#### 0.1.5
 
 - change the command
   - init `new a Ant Design Pro scaffold`
