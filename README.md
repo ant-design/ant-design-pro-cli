@@ -33,7 +33,21 @@ $ pro generate
 
 <img width="400" src="https://gw.alipayobjects.com/zos/rmsportal/VhiILFUpYxGUBgbnuUny.png" />
 
+### Custom template 
+
+Creating a directory named 'tpl' in your project's root path, and all file in this folder will can be choose in pro cli: 
+
+<img width="300" src="https://user-images.githubusercontent.com/1179603/32481313-76601bc2-c358-11e7-8513-15bc5f29c59b.gif" />
+
 ### CHANGELOG
+
+#### 0.2.2
+
+- change the command
+  - support shorthand of command
+    - pro new -> pro n
+    - pro generate -> pro g
+  - support custom file template
 
 #### 0.2.1
 

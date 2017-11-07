@@ -8,19 +8,21 @@ const newCli = require('../lib/new');
 const generateCli = require('../lib/generate');
 
 program.version(pkg.version)
-  .option('new', 'new a Ant Design Pro project.')
   .option('init', '`init` is deprecated, please use `new`')
+  .option('new', 'new a Ant Design Pro project.')
   .option('generate', 'generate template')
+  .option('n', 'new a Ant Design Pro project.')
+  .option('g', 'generate template')
   .parse(process.argv);
 
 if (program.init) {
   console.log(chalk.red('`init` is deprecated, please use `new`'));
 }
 
-if (program.new) {
+if (program.new || program.n) {
   newCli(process.argv);
 }
 
-if (program.generate) {
+if (program.generate || program.g) {
   generateCli(process.argv);
 }
