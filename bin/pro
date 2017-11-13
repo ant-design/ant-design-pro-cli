@@ -6,13 +6,16 @@ const pkg = require('../package.json');
 
 const newCli = require('../lib/new');
 const generateCli = require('../lib/generate');
+const editorCli = require('../lib/editor');
 
 program.version(pkg.version)
   .option('init', '`init` is deprecated, please use `new`')
   .option('new', 'new a Ant Design Pro project.')
   .option('generate', 'generate template')
+  .option('editor', 'open Ant Design Editor')
   .option('n', 'new a Ant Design Pro project.')
   .option('g', 'generate template')
+  .option('e', 'open Ant Design Editor')
   .parse(process.argv);
 
 if (program.init) {
@@ -25,4 +28,8 @@ if (program.new || program.n) {
 
 if (program.generate || program.g) {
   generateCli(process.argv);
+}
+
+if (program.editor || program.e) {
+  editorCli(process.argv);
 }

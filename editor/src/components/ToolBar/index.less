@@ -1,0 +1,53 @@
+.toolBar {
+  position: fixed;
+  top: 48px;
+  right: 48px;
+}
+
+.operator {
+  border: 1px solid gray;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: 0;
+  .operatorLeft {
+    margin-right: 40px;
+    border-right: 1px solid gray;
+  }
+  .rollback {
+    i {
+      transform: scaleX(-1);
+    }
+  }
+  li {
+    border-left: 1px solid gray;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    i {
+      position: relative;
+    }
+    &:first-child {
+      border-left: none;
+    }
+    &:hover {
+      i {
+        color: #000;
+      }
+    }
+    &:focus, &:active {
+      i {
+        top: 2px;
+      }
+    }
+  }
+}
+
+.components {
+  overflow: scroll;
+  width: 300px;
+  max-height: 500px;
+}

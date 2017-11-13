@@ -1,0 +1,10 @@
+{
+  "name": "ant-design-editor",
+  "scripts": {
+    "start": "../node_modules/.bin/roadhog server",
+    "build": "../node_modules/.bin/roadhog build"
+  },
+  "dependencies": {
+    "antd": "^3.0.0-beta.1"
+  }
+}
