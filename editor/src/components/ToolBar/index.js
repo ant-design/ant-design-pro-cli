@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'dva';
 import * as antd from 'antd';
 
 import styles from './index.less';
 
 const Icon = antd.Icon;
+const Input = antd.Input;
 const Tooltip = antd.Tooltip;
 const Popover = antd.Popover;
 
 const components = Object.keys(antd);
 
+@connect(state => ({
+  editor: state.editor,
+  config: state.config,
+}))
 class ToolBar extends Component {
   state = {
     type: '',
     configVisible: false,
+    components: [...components],
   }
   handleVisibleChange = () => {
 
@@ -29,17 +36,49 @@ class ToolBar extends Component {
 
   }
 
+  dragStart = (e) => {
+    console.log('start', e);
+    // set current components
+  }
+
+  dragEnd = (e) => {
+    console.log('end', e);
+    // drop current components
+  }
+
+  componentSearch = (e) => {
+    const value = e.target.value;
+    const c = components.filter(c => new RegExp(value, 'gi').test(c));
+    this.setState({
+      components: c,
+    });
+  }
+
   render() {
-    const { configVisible } = this.state;
+    const { configVisible, components } = this.state;
 
     const configContent = (
-      <div className={styles.components}>
-        <h3>Components</h3>
-        {
-          components.map(c => (
-            <p>{c}</p>
-          ))
-        }
+      <div className={styles.componentBlock}>
+        <Input
+          className={styles.componentSearch}
+          placeholder="Search Components..."
+          onChange={this.componentSearch}
+        />
+        <div className={styles.componentList}>
+          {
+            components.map(c => (
+              <p
+                className={styles.componentItem}
+                key={c}
+                draggable
+                onDragStart={(e) => this.dragStart(e, c)}
+                onDragEnd={(e) => this.dragEnd(e, c)}
+              >
+                {c}
+              </p>
+            ))
+          }
+        </div>
       </div>
     );
 
