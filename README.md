@@ -41,6 +41,10 @@ Creating a directory named 'tpl' in your project's root path, and all file in th
 
 ### CHANGELOG
 
+#### 0.2.3
+
+- new simple templates
+
 #### 0.2.2
 
 - change the command
