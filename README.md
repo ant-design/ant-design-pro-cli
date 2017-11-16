@@ -44,6 +44,9 @@ Creating a directory named 'tpl' in your project's root path, and all file in th
 #### 0.2.3
 
 - new simple templates
+  - standard: all functional Ant Design Pro scaffold
+  - simple: simple version of Ant Design Pro with hash history
+  - browser history simple: simple version of Ant Design Pro with browser history
 
 #### 0.2.2
 
