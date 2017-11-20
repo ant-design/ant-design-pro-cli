@@ -22,6 +22,7 @@ $ npm install ant-design-pro-cli -g
 
 ```bash
 $ pro new // will download ant-design-pro in current directory
+$ pro new --no-auto-install // not auto install dependencies 
 ```
 
 ### Generate pages / components / models to project
@@ -40,6 +41,11 @@ Creating a directory named 'tpl' in your project's root path, and all file in th
 <img width="300" src="https://user-images.githubusercontent.com/1179603/32481313-76601bc2-c358-11e7-8513-15bc5f29c59b.gif" />
 
 ### CHANGELOG
+
+#### 0.2.5
+
+- add `--no-auto-install` config
+- fixed typo
 
 #### 0.2.3
 
