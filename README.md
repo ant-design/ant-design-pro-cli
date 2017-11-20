@@ -1,6 +1,10 @@
-# Cli for Ant Design Pro [![npm package](https://img.shields.io/npm/v/ant-design-pro-cli.svg)](https://www.npmjs.com/package/ant-design-pro-cli)
+# Cli for Ant Design Pro
 
-A simple CLI for Ant Design Pro projects.
+### A simple CLI for Ant Design Pro projects.
+
+<!-- badges section. -->
+
+[![npm package](https://img.shields.io/npm/v/ant-design-pro-cli.svg)](https://www.npmjs.com/package/ant-design-pro-cli)
 
 ## Feature
 
