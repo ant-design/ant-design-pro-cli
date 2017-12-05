@@ -35,7 +35,7 @@ $ pro new --no-auto-install // not auto install dependencies
 
 ```bash
 $ cd your application
-$ pro g(generate)
+$ pro g
 ```
 
 <img width="400" src="https://gw.alipayobjects.com/zos/rmsportal/VhiILFUpYxGUBgbnuUny.png" />
@@ -43,8 +43,14 @@ $ pro g(generate)
 ### Prettier eslint your code
 
 ```bash
+$ pro p [filePath]
+```
+
+Example:
+
+```bash
 $ cd your application
-$ pro p(prettier) [filePath](./test.js)
+$ pro p ./test.js
 ```
 
 ### Custom template
