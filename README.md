@@ -64,6 +64,10 @@ this folder will can be choose in pro cli:
 
 #### 0.2.6
 
+* remove 'antd@next'
+
+#### 0.2.6
+
 * add `prettier-eslint` support
   * run `pro p [filePath]` or `pro prettier [filePath]`
 
