@@ -62,7 +62,7 @@ this folder will can be choose in pro cli:
 
 ### CHANGELOG
 
-#### 0.2.6
+#### 0.2.7
 
 * remove 'antd@next'
 
