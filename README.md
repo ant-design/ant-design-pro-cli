@@ -62,6 +62,11 @@ this folder will can be choose in pro cli:
 
 ### CHANGELOG
 
+#### 1.0.0
+
+* synchronization Ant Desgin Pro 1.0.0
+* remove `simple` & `browser history simple`, recommend use `standard` directly
+
 #### 0.2.7
 
 * remove 'antd@next'
