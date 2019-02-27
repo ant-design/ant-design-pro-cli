@@ -4,7 +4,7 @@
 
 <!-- badges section. -->
 
-[![npm package](https://img.shields.io/npm/v/ant-design-pro-cli.svg)](https://www.npmjs.com/package/ant-design-pro-cli)
+[![npm package](https://img.shields.io/npm/v/ant-design-pro-cli.svg)](https://www.npmjs.com/package/ant-design-pro-cli) [![Greenkeeper badge](https://badges.greenkeeper.io/ant-design/ant-design-pro-cli.svg)](https://greenkeeper.io/)
 
 ## Feature
 
