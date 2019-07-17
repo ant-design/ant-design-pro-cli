@@ -6,7 +6,7 @@ const importCache = require('import-fresh');
 
 const engine = new CLIEngine({
   fix: true,
-  baseConfig: importCache(path.resolve(__dirname, '../.eslintrc.js')),
+  baseConfig: importCache(path.resolve(__dirname, '../../.eslintrc.js')),
 });
 
 function eslintJS(content) {

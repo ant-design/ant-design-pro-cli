@@ -1,10 +1,10 @@
 const groupBy = require('lodash.groupby');
+const fs = require('fs');
 const { winPath } = require('umi-utils');
 const glob = require('glob');
 const { join, basename } = require('path');
-const nodeEval = require('node-eval');
-
-const transform = require('./transform');
+const tsImport = require('node-import-ts');
+const jsImport = require('import-fresh');
 
 function getLocaleFileList(absSrcPath, absPagesPath, singular) {
   const localeFileMath = /^([a-z]{2})-([A-Z]{2})\.(js|ts)$/;
@@ -40,11 +40,22 @@ function getLocaleFileList(absSrcPath, absPagesPath, singular) {
 }
 
 module.exports = (cwd, locale) => {
-  const arrayList = getLocaleFileList(join(cwd, 'src'), cwd)[locale].map(({ path }) =>
+  let absSrcPath = join(cwd, 'src');
+  let absPagesPath = cwd;
+  if (fs.existsSync(join(cwd, 'package.json'))) {
+    absSrcPath = join(cwd, 'src');
+    absPagesPath = join(cwd, 'src/pages');
+  }
+  const arrayList = getLocaleFileList(absSrcPath, absPagesPath)[locale].map(({ path }) =>
     winPath(path),
   );
   const localeMap = arrayList
-    .map(filePath => nodeEval(transform(filePath)).default)
+    .map(filePath => {
+      if (filePath.includes('ts')) {
+        return tsImport(filePath);
+      }
+      return jsImport(filePath);
+    })
     .reduce(
       (pre, item) => ({
         ...pre,

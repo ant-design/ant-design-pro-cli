@@ -7,6 +7,7 @@ const { join } = require('path');
 const chalk = require('chalk');
 const screenshot = require('./src/screenshot/index');
 const i18n = require('./src/i18n/index');
+const fetchBlocks = require('./src/fetch-blocks/index');
 
 // print version and @local
 const args = yParser(process.argv.slice(2));
@@ -26,7 +27,18 @@ if (!semver.satisfies(process.version, '>= 8.0.0')) {
 }
 const cwd = process.cwd();
 
-run({
-  cwd,
-  ...args,
-});
+const option = args._[0];
+
+switch (option) {
+  case 'screenshot':
+    screenshot({ cwd, ...args });
+    break;
+  case 'i18n-remove':
+    i18n({ cwd, ...args });
+    break;
+  case 'fetch-blocks':
+    fetchBlocks({ cwd, ...args });
+    break;
+  default:
+    break;
+}

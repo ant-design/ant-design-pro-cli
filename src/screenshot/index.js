@@ -42,9 +42,8 @@ const startServer = async path => {
       // hack code , wait umi
       if (!once && data.toString().indexOf('Compiled successfully') >= 0) {
         once = true;
-        return resolve(server);
+        resolve(server);
       }
-      return resolve(null);
     });
     server.on('exit', () => {
       kill(env.PORT || 8000);
@@ -200,19 +199,19 @@ const getAllFile = async (cwd, filePath) => {
 
 module.exports = async ({ cwd, diff, path }) => {
   diffFile = [];
-  spinner.start('🔍  Get all block');
+  spinner.start('🔍  Get block');
   const dirList = await getAllFile(cwd, path);
   spinner.succeed();
 
   const total = dirList.length;
-  spinner.start('🌏  start puppeteer');
+  spinner.start('🌏  Start puppeteer');
   const registry = await getNpmRegistry();
   const page = await openBrowser();
   spinner.succeed();
 
   const loopGetImage = async index => {
     try {
-      spinner.start(`📦  install ${dirList[index]} dependencies`);
+      spinner.start(`📦  Install ${dirList[index]} dependencies`);
       await execa('yarn', ['install', `--registry=${registry}`, '--force'], {
         cwd: join(cwd, `./${dirList[index]}`),
       });
