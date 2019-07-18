@@ -20,38 +20,38 @@
 Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x, 8.x preferred), npm
 version 3+ and [Git](https://git-scm.com/).
 
-```bash
+'''bash
 $ npm install ant-design-pro-cli -g
-```
+'''
 
 ### New a Ant Design Pro template
 
-```bash
+'''bash
 $ pro new // will download ant-design-pro in current directory
 $ pro new --no-auto-install // not auto install dependencies
-```
+'''
 
 ### Generate pages / components / models to project
 
-```bash
+'''bash
 $ cd your application
 $ pro g
-```
+'''
 
 <img width="400" src="https://gw.alipayobjects.com/zos/rmsportal/VhiILFUpYxGUBgbnuUny.png" />
 
 ### Prettier eslint your code
 
-```bash
+'''bash
 $ pro p [filePath]
-```
+'''
 
 Example:
 
-```bash
+'''bash
 $ cd your application
 $ pro p ./test.js
-```
+'''
 
 ### Custom template
 
@@ -65,7 +65,7 @@ this folder will can be choose in pro cli:
 #### 1.0.0
 
 * synchronization Ant Desgin Pro 1.0.0
-* remove `simple` & `browser history simple`, recommend use `standard` directly
+* remove 'simple' & 'browser history simple', recommend use 'standard' directly
 
 #### 0.2.7
 
@@ -73,12 +73,12 @@ this folder will can be choose in pro cli:
 
 #### 0.2.6
 
-* add `prettier-eslint` support
-  * run `pro p [filePath]` or `pro prettier [filePath]`
+* add 'prettier-eslint' support
+  * run 'pro p [filePath]' or 'pro prettier [filePath]'
 
 #### 0.2.5
 
-* add `--no-auto-install` config
+* add '--no-auto-install' config
 * fixed typo
 
 #### 0.2.3
@@ -103,7 +103,7 @@ this folder will can be choose in pro cli:
   * new -> generate
   * init -> new
 
-#### 0.2.0 `deprecated`
+#### 0.2.0 'deprecated'
 
 * change the command
   * new -> generate
@@ -112,5 +112,5 @@ this folder will can be choose in pro cli:
 #### 0.1.5
 
 * change the command
-  * init -> `new a Ant Design Pro scaffold`
-  * new -> `generate templates`
+  * init -> 'new a Ant Design Pro scaffold'
+  * new -> 'generate templates'
