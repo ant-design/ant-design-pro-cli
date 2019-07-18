@@ -2,7 +2,6 @@ const parser = require('@babel/parser');
 const traverse = require('@babel/traverse');
 const generate = require('@babel/generator');
 const t = require('babel-types');
-const IntlMessageFormat = require('intl-messageformat');
 
 /**
  * 生成代码
@@ -12,11 +11,11 @@ function generateCode(ast) {
   return generate.default(ast, {}).code;
 }
 
-const genMessage = ({ id, defaultMessage, values }, localeMap, locale) => {
+const genMessage = ({ id, defaultMessage, values }, localeMap) => {
   if (id && localeMap[id]) {
     const message = localeMap[id];
     if (values) {
-      console.log(`${message}, 不支持带逻辑的 values`);
+      console.log(`${id} - ${message} 不支持带逻辑的 values`);
       return defaultMessage || id;
     }
     return localeMap[id];
