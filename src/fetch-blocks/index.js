@@ -62,7 +62,7 @@ const filterParentRouter = (route, layout) =>
 const firstUpperCase = pathString =>
   pathString
     .replace('.', '')
-    .split(/\/|\\-/)
+    .split(/\/|-/)
     .map(s => s.toLowerCase().replace(/( |^)[a-z]/g, L => L.toUpperCase()))
     .filter(s => s)
     .join('');
