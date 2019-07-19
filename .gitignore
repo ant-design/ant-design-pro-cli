@@ -1,38 +1,38 @@
-*.iml
-.idea/
-.ipr
-.iws
-*~
-~*
-*.diff
-*.patch
-*.bak
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+**/node_modules
+# roadhog-api-doc ignore
+/src/utils/request-temp.js
+_roadhog-api-doc
+
+# production
+/dist
+/.vscode
+
+# misc
 .DS_Store
-Thumbs.db
-.project
-.*proj
-.svn/
-*.swp
-*.swo
-*.log
-*.log.*
-*.json.gzip
-node_modules/
-_ant_tpl_data.json
-logs/
-run/
-.buildpath
-.settings
-npm-debug.log
-nohup.out
-_site
-_data
-dist
-/es
-elasticsearch-*
-config/base.yaml
-/.vscode/
+npm-debug.log*
+yarn-error.log
+
 /coverage
+.idea
 yarn.lock
-/.history
-app/view/layout/.*
+package-lock.json
+*bak
+lib
+.vscode
+
+# visual studio code
+.history
+*.log
+functions/*
+.temp/**
+
+# umi
+.umi
+.umi-production
+
+# screenshot
+screenshot
+.firebase

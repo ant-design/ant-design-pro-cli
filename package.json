@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/pro-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The command tool for ant design pro",
   "bin": {
     "pro": "./cli.js"
@@ -39,10 +39,5 @@
     "umi-utils": "^1.5.1",
     "yargs-parser": "^13.1.1"
   },
-  "devDependencies": {},
-  "files": [
-    "bin",
-    "boilerplate",
-    "lib"
-  ]
+  "devDependencies": {}
 }
