@@ -6,7 +6,8 @@
     "pro": "./cli.js"
   },
   "files": [
-    "src"
+    "src",
+    "cli.js"
   ],
   "repository": {
     "type": "git",
