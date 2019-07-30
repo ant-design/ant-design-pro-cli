@@ -5,6 +5,9 @@
   "bin": {
     "pro": "./cli.js"
   },
+  "files": [
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ant-design/ant-design-pro-cli"
