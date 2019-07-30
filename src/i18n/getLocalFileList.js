@@ -4,7 +4,6 @@ const { winPath } = require('umi-utils');
 const glob = require('glob');
 const { join, basename } = require('path');
 const tsImport = require('node-import-ts');
-const jsImport = require('import-fresh');
 
 function getLocaleFileList(absSrcPath, absPagesPath, singular) {
   const localeFileMath = /^([a-z]{2})-([A-Z]{2})\.(js|ts)$/;
@@ -50,12 +49,7 @@ module.exports = (cwd, locale) => {
     winPath(path),
   );
   const localeMap = arrayList
-    .map(filePath => {
-      if (filePath.includes('ts')) {
-        return tsImport(filePath);
-      }
-      return jsImport(filePath);
-    })
+    .map(filePath => tsImport(filePath))
     .reduce(
       (pre, item) => ({
         ...pre,
