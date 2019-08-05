@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
-const { exec } = require('child_process');
+const execa = require('execa');
 const rimraf = require('rimraf');
 
 const chalk = require('chalk');
@@ -69,7 +69,7 @@ const firstUpperCase = pathString =>
 
 const execCmd = (shell, cwd) =>
   new Promise((resolve, reject) => {
-    exec(
+    execa.command(
       shell,
       {
         encoding: 'utf8',
@@ -78,10 +78,11 @@ const execCmd = (shell, cwd) =>
           ...process.env,
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
         },
+        stdout: 'inherit',
       },
       error => {
         if (error) {
-          console.error(error);
+          console.log(error);
           return reject(error);
         }
         return resolve();

@@ -55,7 +55,6 @@ module.exports = ({ cwd, locale = 'zh-CN', write }) => {
         return;
       }
       spinner.succeed();
-      console.log(content);
     }
   });
 };
