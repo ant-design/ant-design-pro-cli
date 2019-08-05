@@ -1,12 +1,9 @@
-// eslint-disable-next-line eslint-comments/disable-enable-pair
-/* eslint-disable import/no-dynamic-require */
-const path = require('path');
 const { CLIEngine } = require('eslint');
-const importCache = require('import-fresh');
+const { strictEslint } = require('@umijs/fabric');
 
 const engine = new CLIEngine({
   fix: true,
-  baseConfig: importCache(path.resolve(__dirname, '../../eslintrc.js')),
+  baseConfig: strictEslint,
 });
 
 function eslintJS(content) {
