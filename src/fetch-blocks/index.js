@@ -69,25 +69,29 @@ const firstUpperCase = pathString =>
 
 const execCmd = (shell, cwd) =>
   new Promise((resolve, reject) => {
-    execa.command(
-      shell,
-      {
-        encoding: 'utf8',
-        cwd,
-        env: {
-          ...process.env,
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
+    execa
+      .command(
+        shell,
+        {
+          encoding: 'utf8',
+          cwd,
+          env: {
+            ...process.env,
+            PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
+          },
+          stdout: 'inherit',
         },
-        stdout: 'inherit',
-      },
-      error => {
-        if (error) {
-          console.log(error);
-          return reject(error);
-        }
+        error => {
+          if (error) {
+            console.log(error);
+            return reject(error);
+          }
+          return resolve();
+        },
+      )
+      .on('exit', () => {
         return resolve();
-      },
-    );
+      });
   });
 
 const installBlock = async cwd => {
