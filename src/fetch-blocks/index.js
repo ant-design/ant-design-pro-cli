@@ -79,19 +79,16 @@ const execCmd = (shell, cwd) =>
             ...process.env,
             PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
           },
-          stdout: 'inherit',
         },
         error => {
           if (error) {
             console.log(error);
-            return reject(error);
+            reject(error);
           }
-          return resolve();
+          resolve();
         },
       )
-      .on('exit', () => {
-        return resolve();
-      });
+      .on('exit', () => resolve());
   });
 
 const installBlock = async cwd => {
