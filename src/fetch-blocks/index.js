@@ -68,27 +68,20 @@ const firstUpperCase = pathString =>
     .join('');
 
 const execCmd = (shell, cwd) =>
-  new Promise((resolve, reject) => {
-    execa.command(
-      shell,
-      {
-        encoding: 'utf8',
-        cwd,
-        env: {
-          ...process.env,
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
-        },
-        stdout: 'inherit',
+  execa.command(
+    shell, {
+      encoding: 'utf8',
+      cwd,
+      env: {
+        ...process.env,
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
       },
-      error => {
-        if (error) {
-          console.log(error);
-          return reject(error);
-        }
-        return resolve();
-      },
-    );
-  });
+      stdout: 'inherit',
+    },
+    error => {
+      console.log(error);
+    },
+  );
 
 const installBlock = async cwd => {
   let gitFiles = await fetchGithubFiles();
