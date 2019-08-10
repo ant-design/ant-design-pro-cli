@@ -68,18 +68,17 @@ const firstUpperCase = pathString =>
     .join('');
 
 const execCmd = (shell, cwd) => {
-  try {
-    execa.commandSync(shell, {
-      encoding: 'utf8',
-      cwd,
-      env: {
-        ...process.env,
-        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  const debug = process.env.DEBUG === 'pro-cli';
+  return execa.commandSync(shell, {
+    encoding: 'utf8',
+    cwd,
+    env: {
+      ...process.env,
+      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
+    },
+    stderr: debug ? 'inherit' : 'pipe',
+    stdout: debug ? 'inherit' : 'pipe',
+  });
 };
 
 const installBlock = async cwd => {
@@ -97,7 +96,6 @@ const installBlock = async cwd => {
     // 如果这个区块在 git 上存在
     if (gitFiles.find(file => file.path === gitPath)) {
       spinner.start(`📦  install ${chalk.green(item.name)}  to: ${chalk.yellow(item.path)}`);
-
       // 如果文件夹存在，删除他
       rimraf.sync(path.join(cwd, '/src/pages', item.path));
 
@@ -120,10 +118,14 @@ const installBlock = async cwd => {
       }
 
       try {
-        await execCmd(cmd.join(' '), cwd);
+        const { exitCode } = execCmd(cmd.join(' '), cwd);
+        if (exitCode === 1) {
+          process.exit();
+        }
         spinner.succeed();
       } catch (error) {
         console.error(error);
+        process.exit();
       }
     }
     return installBlockIteration(i + 1);
@@ -139,7 +141,7 @@ const installBlock = async cwd => {
     spinner.start(`📦 install ${chalk.green(item.path)}`);
 
     const cmd = `umi block add https://github.com/ant-design/pro-blocks/tree/master/${item.path}`;
-    await execCmd(cmd);
+    execCmd(cmd);
 
     spinner.succeed();
     return installBlockIteration(1);
