@@ -23,6 +23,12 @@ yarn add @ant-design/pro-cli
 - --locale 设置语言
 - --write 是否写入文件
 
+## debug
+
+```bash
+DEBUG=pro-cli pro XXX
+```
+
 ## Examples
 
 ### pro
