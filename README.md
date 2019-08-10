@@ -1,5 +1,13 @@
 # Cli for Ant Design Pro
 
+## Install
+
+```shell
+npm i @ant-design/pro-cli
+# or
+yarn add @ant-design/pro-cli
+```
+
 ## Commands
 
 - screenshot 对区块进行截图
