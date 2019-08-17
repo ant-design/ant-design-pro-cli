@@ -25,8 +25,24 @@ yarn add @ant-design/pro-cli
 
 ## debug
 
+### bash
+
 ```bash
 DEBUG=pro-cli pro XXX
+```
+
+### PowerShell
+
+```powershell
+$env:DEBUG="pro-cli"
+pro xxx
+```
+
+### CMD
+
+```cmd
+set DEBUG=pro-cli
+pro xxx
 ```
 
 ## Examples
