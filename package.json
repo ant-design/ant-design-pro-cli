@@ -24,7 +24,7 @@
     "blink-diff": "^1.0.13",
     "chalk": "^2.4.2",
     "cross-port-killer": "^1.1.1",
-    "eslint": "^5.16.0",
+    "eslint": "^6.2.2",
     "execa": "^2.0.3",
     "getnpmregistry": "^1.0.1",
     "glob": "^7.1.4",
