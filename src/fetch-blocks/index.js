@@ -3,7 +3,7 @@ const fs = require('fs');
 const fetch = require('node-fetch');
 const execa = require('execa');
 const rimraf = require('rimraf');
-
+const getNpmRegistry = require('getnpmregistry');
 const chalk = require('chalk');
 const ora = require('ora');
 const insertCode = require('./insertCode');
@@ -105,6 +105,7 @@ const installBlock = async cwd => {
       const cmd = [
         `umi block add https://github.com/ant-design/pro-blocks/tree/master/${gitPath}`,
         `--path=${item.path}`,
+        '--skip-dependencies',
       ];
 
       // 如果是 routes 就不修改路由
@@ -132,23 +133,6 @@ const installBlock = async cwd => {
   };
   // 安装路由中设置的区块
   await installBlockIteration(0);
-
-  const installGitFile = async i => {
-    const item = gitFiles[i];
-    if (!item || !item.path) {
-      return Promise.resolve();
-    }
-    spinner.start(`📦 install ${chalk.green(item.path)}`);
-
-    const cmd = `umi block add https://github.com/ant-design/pro-blocks/tree/master/${item.path}`;
-    execCmd(cmd);
-
-    spinner.succeed();
-    return installBlockIteration(1);
-  };
-
-  // 安装 router 中没有的剩余区块.
-  installGitFile(0);
 };
 
 module.exports = async ({ cwd }) => {
@@ -181,6 +165,23 @@ module.exports = async ({ cwd }) => {
 
   await installBlock(cwd);
   await insertCode(cwd);
+
+  /**
+   * 安装依赖，因为 pro 的中忽略了依赖安装来增加速度
+   */
+  const useYarn = fs.existsSync(path.join(cwd, 'yarn.lock'));
+  const registryUrl = await getNpmRegistry();
+  console.log(
+    [useYarn ? 'yarn' : 'npm', useYarn ? '' : 'install', `--registry=${registryUrl}`]
+      .filter(n => n)
+      .join(' '),
+  );
+  spinner.start(`🚚  install dependencies package`);
+  execCmd(
+    [useYarn ? 'yarn' : 'npm', useYarn ? '' : 'install', `--registry=${registryUrl}`].join(' '),
+  );
+
+  spinner.succeed();
 
   process.exit();
 };
