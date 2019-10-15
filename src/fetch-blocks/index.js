@@ -135,10 +135,10 @@ const installBlock = async cwd => {
   await installBlockIteration(0);
 };
 
-module.exports = async ({ cwd }) => {
+module.exports = async ({ cwd, js }) => {
   spinner.start('🧐  find config.ts ...');
   let relativePath = path.join(cwd, './config/config.ts');
-
+  isJS = js;
   // 如果 ts 不存在 去找 js 的
   if (!fs.existsSync(relativePath)) {
     spinner.warn();
