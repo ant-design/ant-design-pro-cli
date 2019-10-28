@@ -40,7 +40,7 @@
     "semver": "^6.2.0",
     "typescript": "^3.5.3",
     "umi-utils": "^1.5.1",
-    "yargs-parser": "^15.0.0"
+    "yargs-parser": "^16.0.0"
   },
   "optionaldependencies": {
     "puppeteer": "^1.18.1"
