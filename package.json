@@ -22,7 +22,7 @@
     "@umijs/fabric": "^1.1.9",
     "babel-types": "^6.26.0",
     "blink-diff": "^1.0.13",
-    "chalk": "^2.4.2",
+    "chalk": "^3.0.0",
     "cross-port-killer": "^1.1.1",
     "eslint": "^6.2.2",
     "execa": "^3.0.0",
