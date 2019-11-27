@@ -88,30 +88,6 @@ const insertBasicLayout = configPath =>
     });
   });
 
-const insertBlankLayout = configPath =>
-  mapAst(configPath, body => {
-    const index = body.findIndex(item => item.type !== 'ImportDeclaration');
-    // 从组件中导入 CopyBlock
-    body.splice(
-      index,
-      0,
-      parseCode(`import CopyBlock from '@/components/CopyBlock';
-    `),
-    );
-    body.forEach(item => {
-      if (item.type === 'VariableDeclaration') {
-        const { id, init } = item.declarations[0];
-        // 给 BasicLayout 中插入 button 和 设置抽屉
-        if (id.name === 'Layout') {
-          const JSXFragment = parseCode('<></>').expression;
-          JSXFragment.children.push({ ...init.body });
-          JSXFragment.children.push(parseCode('<CopyBlock id={Date.now()}/>').expression);
-          init.body = JSXFragment;
-        }
-      }
-    });
-  });
-
 const insertRightContent = configPath =>
   mapAst(configPath, body => {
     const codeIndex = body.findIndex(item => item.type !== 'ImportDeclaration');
@@ -159,13 +135,6 @@ module.exports = cwd => {
   const rightContentPath = getJsxOrTsx(cwd, '/src/components/GlobalHeader/RightContent.tsx');
   if (fs.existsSync(rightContentPath)) {
     fs.writeFileSync(rightContentPath, insertRightContent(rightContentPath));
-  }
-  spinner.succeed();
-
-  spinner.start(`🎁  insert ${chalk.hex('#1890ff')('blankLayoutPath')} success`);
-  const blankLayoutPath = getJsxOrTsx(cwd, '/src/layouts/BlankLayout.tsx');
-  if (fs.existsSync(blankLayoutPath)) {
-    fs.writeFileSync(blankLayoutPath, insertBlankLayout(blankLayoutPath));
   }
   spinner.succeed();
 };
