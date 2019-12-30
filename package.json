@@ -19,7 +19,7 @@
     "@babel/parser": "^7.5.0",
     "@babel/traverse": "^7.5.0",
     "@babel/types": "^7.5.0",
-    "@umijs/fabric": "^1.1.9",
+    "@umijs/fabric": "^2.0.0",
     "babel-types": "^6.26.0",
     "blink-diff": "^1.0.13",
     "chalk": "^3.0.0",
