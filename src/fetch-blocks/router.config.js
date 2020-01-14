@@ -154,7 +154,7 @@ module.exports = [
           },
           {
             name: 'result',
-            icon: 'check-circle-o',
+            icon: 'CheckCircleOutlined',
             path: '/result',
             routes: [
               // result
