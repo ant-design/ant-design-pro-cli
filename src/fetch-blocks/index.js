@@ -81,7 +81,7 @@ const execCmd = (shell, cwd) => {
   });
 };
 
-const installBlock = async cwd => {
+const installBlock = async (cwd, arg) => {
   let gitFiles = await fetchGithubFiles();
   const installRouters = findAllInstallRouter(router);
 
@@ -101,11 +101,12 @@ const installBlock = async cwd => {
 
       // 从路由中删除这个区块
       gitFiles = gitFiles.filter(file => file.path !== gitPath);
-
+      console.log(arg);
       const cmd = [
         `umi block add https://github.com/ant-design/pro-blocks/tree/master/${gitPath}`,
         `--path=${item.path}`,
         '--skip-dependencies',
+        `--branch=${arg.branch || 'master'}`,
       ];
 
       // 如果是 routes 就不修改路由
@@ -135,7 +136,7 @@ const installBlock = async cwd => {
   await installBlockIteration(0);
 };
 
-module.exports = async ({ cwd, js }) => {
+module.exports = async ({ cwd, js, ...rest }) => {
   spinner.start('🧐  find config.ts ...');
   let relativePath = path.join(cwd, './config/config.ts');
   isJS = js;
@@ -163,8 +164,8 @@ module.exports = async ({ cwd, js }) => {
   // write ParentRouter
   fs.writeFileSync(routesPath, code);
 
-  await installBlock(cwd);
-  await insertCode(cwd);
+  await installBlock(cwd, rest);
+  await insertCode(cwd, rest);
 
   /**
    * 安装依赖，因为 pro 的中忽略了依赖安装来增加速度
