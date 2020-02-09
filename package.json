@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/pro-cli",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "The command tool for ant design pro",
   "bin": {
     "pro": "./cli.js"
