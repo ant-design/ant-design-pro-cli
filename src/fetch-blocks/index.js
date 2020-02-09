@@ -198,11 +198,11 @@ module.exports = async ({ cwd, js, ...rest }) => {
   const parentRouter = filterParentRouter(router, true);
   const { routesPath, code } = getNewRouteCode(relativePath, parentRouter);
 
-  await installBlock(cwd, rest);
-  await insertCode(cwd, rest);
-
   // write ParentRouter
   fs.writeFileSync(routesPath, code);
+
+  await installBlock(cwd, rest);
+  await insertCode(cwd, rest);
 
   /**
    * 安装依赖，因为 pro 的中忽略了依赖安装来增加速度
