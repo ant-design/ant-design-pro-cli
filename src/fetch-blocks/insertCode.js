@@ -97,6 +97,9 @@ const insertRightContent = configPath =>
     body.forEach(item => {
       if (item.type === 'VariableDeclaration') {
         const classBody = item.declarations[0].init.body;
+        if (!classBody || !classBody.body) {
+          return;
+        }
         classBody.body.forEach(node => {
           if (node.type === 'ReturnStatement') {
             const index = node.argument.children.findIndex(argumentItem => {

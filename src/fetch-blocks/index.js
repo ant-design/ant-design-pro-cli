@@ -67,17 +67,52 @@ const firstUpperCase = pathString =>
     .filter(s => s)
     .join('');
 
-const execCmd = (shell, cwd) => {
+const execCmd = (shell, cwd, option = {}) => {
   const debug = process.env.DEBUG === 'pro-cli';
-  return execa.commandSync(shell, {
-    encoding: 'utf8',
-    cwd,
-    env: {
-      ...process.env,
-      PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
-    },
-    stderr: debug ? 'inherit' : 'pipe',
-    stdout: debug ? 'inherit' : 'pipe',
+  if (option.sync) {
+    return execa.commandSync(shell, {
+      encoding: 'utf8',
+      cwd,
+      env: {
+        ...process.env,
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
+      },
+      stderr: debug ? 'inherit' : 'pipe',
+      stdout: debug ? 'inherit' : 'pipe',
+    });
+  }
+
+  return new Promise(resolve => {
+    const onData = data => {
+      if (debug) {
+        process.stdout.write(data);
+      }
+      if (data && `${data}`.toLowerCase().includes('success')) {
+        resolve({
+          exitCode: 0,
+        });
+      }
+    };
+
+    const { stdout, stderr } = execa.command(shell, {
+      encoding: 'utf8',
+      cwd,
+      env: {
+        ...process.env,
+        PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true,
+      },
+      stderr: 'pipe',
+      stdout: 'pipe',
+    });
+
+    stdout.on('data', onData);
+    stderr.on('data', onData);
+
+    setTimeout(() => {
+      resolve({
+        exitCode: 2,
+      });
+    }, 100000);
   });
 };
 
@@ -95,13 +130,13 @@ const installBlock = async (cwd, arg) => {
 
     // 如果这个区块在 git 上存在
     if (gitFiles.find(file => file.path === gitPath)) {
-      spinner.start(`📦  install ${chalk.green(item.name)}  to: ${chalk.yellow(item.path)}`);
+      console.log(`📦  install ${chalk.green(item.name)}  to: ${chalk.yellow(item.path)}`);
       // 如果文件夹存在，删除他
       rimraf.sync(path.join(cwd, '/src/pages', item.path));
 
       // 从路由中删除这个区块
       gitFiles = gitFiles.filter(file => file.path !== gitPath);
-      console.log(arg);
+
       const cmd = [
         `umi block add https://github.com/ant-design/pro-blocks/tree/master/${gitPath}`,
         `--path=${item.path}`,
@@ -120,11 +155,13 @@ const installBlock = async (cwd, arg) => {
       }
 
       try {
-        const { exitCode } = execCmd(cmd.join(' '), cwd);
+        const { exitCode } = await execCmd(cmd.join(' '), cwd);
         if (exitCode === 1) {
           process.exit();
         }
-        spinner.succeed();
+        console.log(
+          `👌  install ${chalk.green(item.name)}  to: ${chalk.yellow(item.path)} success`,
+        );
       } catch (error) {
         console.error(error);
         process.exit();
@@ -161,11 +198,11 @@ module.exports = async ({ cwd, js, ...rest }) => {
   const parentRouter = filterParentRouter(router, true);
   const { routesPath, code } = getNewRouteCode(relativePath, parentRouter);
 
-  // write ParentRouter
-  fs.writeFileSync(routesPath, code);
-
   await installBlock(cwd, rest);
   await insertCode(cwd, rest);
+
+  // write ParentRouter
+  fs.writeFileSync(routesPath, code);
 
   /**
    * 安装依赖，因为 pro 的中忽略了依赖安装来增加速度
@@ -180,6 +217,10 @@ module.exports = async ({ cwd, js, ...rest }) => {
   spinner.start(`🚚  install dependencies package`);
   execCmd(
     [useYarn ? 'yarn' : 'npm', useYarn ? '' : 'install', `--registry=${registryUrl}`].join(' '),
+    undefined,
+    {
+      sync: true,
+    },
   );
 
   spinner.succeed();
