@@ -21,13 +21,13 @@ const fetchGithubFiles = async () => {
     return [];
   }
   const { tree } = await data.json();
-  const files = tree.filter(file => file.type === 'tree' && !ignoreFile.includes(file.path));
+  const files = tree.filter((file) => file.type === 'tree' && !ignoreFile.includes(file.path));
   return files;
 };
 
-const findAllInstallRouter = route => {
+const findAllInstallRouter = (route) => {
   let routers = [];
-  route.forEach(item => {
+  route.forEach((item) => {
     if (item.component && item.path) {
       if (item.path !== '/user' || item.path !== '/') {
         routers.push({
@@ -45,7 +45,7 @@ const findAllInstallRouter = route => {
 
 const filterParentRouter = (route, layout) =>
   [...route]
-    .map(item => {
+    .map((item) => {
       if (!item.path && item.component === '404') {
         return item;
       }
@@ -57,18 +57,18 @@ const filterParentRouter = (route, layout) =>
       }
       return null;
     })
-    .filter(item => item);
+    .filter((item) => item);
 
-const firstUpperCase = pathString =>
+const firstUpperCase = (pathString) =>
   pathString
     .replace('.', '')
     .split(/\/|-/)
-    .map(s => s.toLowerCase().replace(/( |^)[a-z]/g, L => L.toUpperCase()))
-    .filter(s => s)
+    .map((s) => s.toLowerCase().replace(/( |^)[a-z]/g, (L) => L.toUpperCase()))
+    .filter((s) => s)
     .join('');
 
 const execCmd = (shell, cwd, option = {}) => {
-  const debug = process.env.DEBUG === 'pro-cli';
+  const debug = process.env.PRO_CLI !== 'NONE';
   if (option.sync) {
     return execa.commandSync(shell, {
       encoding: 'utf8',
@@ -82,8 +82,8 @@ const execCmd = (shell, cwd, option = {}) => {
     });
   }
 
-  return new Promise(resolve => {
-    const onData = data => {
+  return new Promise((resolve) => {
+    const onData = (data) => {
       if (debug) {
         process.stdout.write(data);
       }
@@ -120,7 +120,7 @@ const installBlock = async (cwd, arg) => {
   let gitFiles = await fetchGithubFiles();
   const installRouters = findAllInstallRouter(router);
 
-  const installBlockIteration = async i => {
+  const installBlockIteration = async (i) => {
     const item = installRouters[i];
 
     if (!item || !item.path) {
@@ -129,18 +129,19 @@ const installBlock = async (cwd, arg) => {
     const gitPath = firstUpperCase(item.path);
 
     // 如果这个区块在 git 上存在
-    if (gitFiles.find(file => file.path === gitPath)) {
+    if (gitFiles.find((file) => file.path === gitPath)) {
       console.log(`📦  install ${chalk.green(item.name)}  to: ${chalk.yellow(item.path)}`);
       // 如果文件夹存在，删除他
       rimraf.sync(path.join(cwd, '/src/pages', item.path));
 
       // 从路由中删除这个区块
-      gitFiles = gitFiles.filter(file => file.path !== gitPath);
+      gitFiles = gitFiles.filter((file) => file.path !== gitPath);
 
       const cmd = [
         `umi block add https://github.com/ant-design/pro-blocks/tree/master/${gitPath}`,
         `--path=${item.path}`,
         '--skip-dependencies',
+        '--page',
         `--branch=${arg.branch || 'master'}`,
       ];
 
@@ -211,7 +212,7 @@ module.exports = async ({ cwd, js, ...rest }) => {
   const registryUrl = await getNpmRegistry();
   console.log(
     [useYarn ? 'yarn' : 'npm', useYarn ? '' : 'install', `--registry=${registryUrl}`]
-      .filter(n => n)
+      .filter((n) => n)
       .join(' '),
   );
   spinner.start(`🚚  install dependencies package`);

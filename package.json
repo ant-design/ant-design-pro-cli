@@ -22,6 +22,7 @@
     "@umijs/fabric": "^2.0.0",
     "babel-types": "^6.26.0",
     "blink-diff": "^1.0.13",
+    "carlo": "^0.9.46",
     "chalk": "^3.0.0",
     "cross-port-killer": "^1.1.1",
     "eslint": "^6.2.2",
@@ -41,9 +42,6 @@
     "typescript": "^3.5.3",
     "umi-utils": "^1.5.1",
     "yargs-parser": "^16.1.0"
-  },
-  "optionaldependencies": {
-    "puppeteer": "^1.18.1"
   },
   "devDependencies": {}
 }

@@ -1,5 +1,4 @@
 const { spawn } = require('child_process');
-const puppeteer = require('puppeteer');
 const { join } = require('path');
 const fs = require('fs');
 const chalk = require('chalk');
@@ -8,6 +7,8 @@ const execa = require('execa');
 const PNGImage = require('pngjs-image');
 const { kill } = require('cross-port-killer');
 const ora = require('ora');
+
+const getBrowser = require('./getBrowser');
 
 const portAvailable = require('./portAvailable');
 const diffPng = require('./diff');
@@ -156,16 +157,7 @@ const screenshot = async ({ page, path, diff, index, total }) => {
 };
 
 const openBrowser = async () => {
-  browser = await puppeteer.launch({
-    headless: true,
-    args: [
-      '--disable-gpu',
-      '--disable-dev-shm-usage',
-      '--no-first-run',
-      '--no-zygote',
-      '--no-sandbox',
-    ],
-  });
+  browser = await getBrowser();
   const page = await browser.newPage();
   return page;
 };
