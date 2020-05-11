@@ -9,6 +9,7 @@ const ora = require('ora');
 const insertCode = require('./insertCode');
 const getNewRouteCode = require('./replaceRouter');
 const router = require('./router.config');
+const blocks = require('./blocks.json');
 
 const spinner = ora();
 
@@ -18,7 +19,7 @@ const fetchGithubFiles = async () => {
   const ignoreFile = ['_scripts', 'tests'];
   const data = await fetch('https://api.github.com/repos/ant-design/pro-blocks/git/trees/master');
   if (data.status !== 200) {
-    return [];
+    return blocks.filter((file) => file.type === 'tree' && !ignoreFile.includes(file.path));
   }
   const { tree } = await data.json();
   const files = tree.filter((file) => file.type === 'tree' && !ignoreFile.includes(file.path));
@@ -119,7 +120,6 @@ const execCmd = (shell, cwd, option = {}) => {
 const installBlock = async (cwd, arg) => {
   let gitFiles = await fetchGithubFiles();
   const installRouters = findAllInstallRouter(router);
-
   const installBlockIteration = async (i) => {
     const item = installRouters[i];
 

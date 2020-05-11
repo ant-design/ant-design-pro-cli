@@ -49,7 +49,7 @@ const insertRightContent = (configPath) =>
   mapAst(configPath, (body) => {
     const codeIndex = body.findIndex((item) => item.type !== 'ImportDeclaration');
     // 从组件中导入 CopyBlock
-    body.splice(codeIndex, 0, parseCode('import NoticeIconView from "./NoticeIconView";'));
+    body.splice(codeIndex, 0, parseCode('import NoticeIconView from "../NoticeIcon";'));
 
     body.forEach((item) => {
       if (item.type === 'VariableDeclaration') {
@@ -85,7 +85,7 @@ const getJsxOrTsx = (cwd, fileName) => {
 
 module.exports = (cwd) => {
   spinner.start(`🎁  insert ${chalk.hex('#1890ff')('RightContent')} success`);
-  const rightContentPath = getJsxOrTsx(cwd, '/src/components/GlobalHeader/index.tsx');
+  const rightContentPath = getJsxOrTsx(cwd, '/src/components/RightContent/index.tsx');
   if (fs.existsSync(rightContentPath)) {
     fs.writeFileSync(rightContentPath, insertRightContent(rightContentPath));
   }
