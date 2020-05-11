@@ -9,7 +9,7 @@ const ora = require('ora');
 
 const spinner = ora();
 
-const parseCode = code =>
+const parseCode = (code) =>
   parser.parse(code, {
     sourceType: 'module',
     plugins: ['typescript', 'jsx'],
@@ -30,18 +30,6 @@ function generateCode(ast) {
   });
 }
 
-const SettingCodeString = `
-  <SettingDrawer
-    settings={settings}
-    onSettingChange={config =>
-    dispatch({
-        type: 'settings/changeSetting',
-        payload: config,
-    })
-    }
-  />
-`;
-
 const mapAst = (configPath, callBack) => {
   const ast = parser.parse(fs.readFileSync(configPath, 'utf-8'), {
     sourceType: 'module',
@@ -57,52 +45,21 @@ const mapAst = (configPath, callBack) => {
   return generateCode(ast);
 };
 
-const insertBasicLayout = configPath =>
-  mapAst(configPath, configBody => {
-    configBody.findIndex(item => item.type !== 'ImportDeclaration');
-
-    configBody.forEach(item => {
-      // 从包中导出 SettingDrawer
-      if (item.type === 'ImportDeclaration') {
-        if (item.source.value === '@ant-design/pro-layout') {
-          item.specifiers.push(parseCode('SettingDrawer').expression);
-        }
-      }
-      if (item.type === 'VariableDeclaration') {
-        const {
-          id,
-          init: { body },
-        } = item.declarations[0];
-        // 给 BasicLayout 中插入 button 和 设置抽屉
-        if (id.name === 'BasicLayout') {
-          body.body.forEach(node => {
-            if (node.type === 'ReturnStatement') {
-              const JSXFragment = parseCode('<></>').expression;
-              JSXFragment.children.push({ ...node.argument });
-              JSXFragment.children.push(parseCode(SettingCodeString).expression);
-              node.argument = JSXFragment;
-            }
-          });
-        }
-      }
-    });
-  });
-
-const insertRightContent = configPath =>
-  mapAst(configPath, body => {
-    const codeIndex = body.findIndex(item => item.type !== 'ImportDeclaration');
+const insertRightContent = (configPath) =>
+  mapAst(configPath, (body) => {
+    const codeIndex = body.findIndex((item) => item.type !== 'ImportDeclaration');
     // 从组件中导入 CopyBlock
     body.splice(codeIndex, 0, parseCode('import NoticeIconView from "./NoticeIconView";'));
 
-    body.forEach(item => {
+    body.forEach((item) => {
       if (item.type === 'VariableDeclaration') {
         const classBody = item.declarations[0].init.body;
         if (!classBody || !classBody.body) {
           return;
         }
-        classBody.body.forEach(node => {
+        classBody.body.forEach((node) => {
           if (node.type === 'ReturnStatement') {
-            const index = node.argument.children.findIndex(argumentItem => {
+            const index = node.argument.children.findIndex((argumentItem) => {
               if (argumentItem.type === 'JSXElement') {
                 if (argumentItem.openingElement.name.name === 'Avatar') {
                   return true;
@@ -126,16 +83,9 @@ const getJsxOrTsx = (cwd, fileName) => {
   return filePath;
 };
 
-module.exports = cwd => {
-  spinner.start(`🎁  insert ${chalk.hex('#1890ff')('BasicLayout')} success`);
-  const basicLayoutPath = getJsxOrTsx(cwd, '/src/layouts/BasicLayout.tsx');
-  if (fs.existsSync(basicLayoutPath)) {
-    fs.writeFileSync(basicLayoutPath, insertBasicLayout(basicLayoutPath));
-  }
-  spinner.succeed();
-
+module.exports = (cwd) => {
   spinner.start(`🎁  insert ${chalk.hex('#1890ff')('RightContent')} success`);
-  const rightContentPath = getJsxOrTsx(cwd, '/src/components/GlobalHeader/RightContent.tsx');
+  const rightContentPath = getJsxOrTsx(cwd, '/src/components/GlobalHeader/index.tsx');
   if (fs.existsSync(rightContentPath)) {
     fs.writeFileSync(rightContentPath, insertRightContent(rightContentPath));
   }
