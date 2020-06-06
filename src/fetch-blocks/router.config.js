@@ -32,6 +32,10 @@ module.exports = [
         Routes: ['src/pages/Authorized'],
         authority: ['admin', 'user'],
         routes: [
+          {
+            path: '/',
+            redirect: '/dashboard',
+          },
           // dashboard
           {
             path: '/dashboard',
