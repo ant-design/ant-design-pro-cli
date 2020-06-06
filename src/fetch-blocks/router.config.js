@@ -34,7 +34,7 @@ module.exports = [
         routes: [
           {
             path: '/',
-            redirect: '/dashboard',
+            redirect: '/dashboard/analysis',
           },
           // dashboard
           {
@@ -236,11 +236,6 @@ module.exports = [
                 component: './Editor/GGEditor/Koni',
               },
             ],
-          },
-          {
-            path: '/',
-            redirect: '/dashboard/analysis',
-            authority: ['admin', 'user'],
           },
           {
             component: '404',
