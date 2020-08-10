@@ -41,7 +41,7 @@
     "semver": "^7.0.0",
     "typescript": "^3.5.3",
     "umi-utils": "^1.5.1",
-    "yargs-parser": "^16.1.0"
+    "yargs-parser": "^19.0.1"
   },
   "devDependencies": {}
 }
