@@ -30,7 +30,7 @@
     "getnpmregistry": "^1.0.1",
     "glob": "^7.1.4",
     "import-fresh": "^3.1.0",
-    "intl-messageformat": "^8.3.17",
+    "intl-messageformat": "^9.2.5",
     "lodash.groupby": "^4.6.0",
     "node-fetch": "^2.6.0",
     "node-import-ts": "^1.0.2",
