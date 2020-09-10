@@ -57,6 +57,10 @@ module.exports = [
                 name: 'workplace',
                 component: './Dashboard/Workplace',
               },
+              {
+                path: '/',
+                redirect: '/dashboard/analysis',
+              },
             ],
           },
           // forms
@@ -80,6 +84,10 @@ module.exports = [
                 name: 'advancedform',
                 authority: ['admin'],
                 component: './Form/AdvancedForm',
+              },
+              {
+                path: '/',
+                redirect: '/form/basic-form',
               },
             ],
           },
@@ -130,6 +138,10 @@ module.exports = [
                   },
                 ],
               },
+              {
+                path: '/',
+                redirect: '/list/table-list',
+              },
             ],
           },
           {
@@ -154,6 +166,10 @@ module.exports = [
                 authority: ['admin'],
                 component: './Profile/AdvancedProfile',
               },
+              {
+                path: '/',
+                redirect: '/profile/basic',
+              },
             ],
           },
           {
@@ -171,6 +187,10 @@ module.exports = [
                 path: '/result/fail',
                 name: 'fail',
                 component: './Result/Error',
+              },
+              {
+                path: '/',
+                redirect: '/result/success',
               },
             ],
           },
@@ -195,6 +215,10 @@ module.exports = [
                 name: 'server-error',
                 component: './Exception/500',
               },
+              {
+                path: '/',
+                redirect: '/exception/403',
+              },
             ],
           },
           {
@@ -211,6 +235,10 @@ module.exports = [
                 path: '/account/settings',
                 name: 'settings',
                 component: './Account/Settings/Info',
+              },
+              {
+                path: '/',
+                redirect: '/account/center',
               },
             ],
           },
@@ -234,6 +262,10 @@ module.exports = [
                 path: '/editor/koni',
                 name: 'koni',
                 component: './Editor/GGEditor/Koni',
+              },
+              {
+                path: '/',
+                redirect: '/editor/flow',
               },
             ],
           },
