@@ -194,7 +194,6 @@ module.exports = async ({ cwd, diff, path, mobile }) => {
   spinner.start('🔍  Get block');
   const dirList = await getAllFile(cwd, path);
   spinner.succeed();
-  console.log(dirList)
 
   const total = dirList.length;
   spinner.start('🌏  Start puppeteer');
