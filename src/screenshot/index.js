@@ -103,7 +103,7 @@ const readPng = path =>
     });
   });
 
-const screenshot = async ({ page, path, diff, index, total }) => {
+const screenshot = async ({ page, path, diff, index, total, mobile }) => {
   try {
     const isAvailable = await portAvailable(8000);
     if (!isAvailable) {
@@ -120,8 +120,8 @@ const screenshot = async ({ page, path, diff, index, total }) => {
   await page.goto(`http://127.0.0.1:${env.PORT}`);
 
   await page.setViewport({
-    width: 1440,
-    height: 800,
+    width: mobile ? 375 : 1440,
+    height: mobile ? 667 : 800,
   });
 
   spinner.start(`💄  set style (${index + 1}/${total})`);
@@ -175,7 +175,7 @@ const getAllFile = async (cwd, filePath) => {
       return false;
     }
     // 支持单独的 文件夹
-    if (filePath && !filePath.includes(path)) {
+    if (filePath && !filePath.toLowerCase().includes(path.toLowerCase())) {
       return false;
     }
     if (stat.isDirectory()) {
@@ -189,11 +189,12 @@ const getAllFile = async (cwd, filePath) => {
   });
 };
 
-module.exports = async ({ cwd, diff, path }) => {
+module.exports = async ({ cwd, diff, path, mobile }) => {
   diffFile = [];
   spinner.start('🔍  Get block');
   const dirList = await getAllFile(cwd, path);
   spinner.succeed();
+  console.log(dirList)
 
   const total = dirList.length;
   spinner.start('🌏  Start puppeteer');
@@ -215,6 +216,7 @@ module.exports = async ({ cwd, diff, path }) => {
         diff,
         index,
         total,
+        mobile,
       });
 
       if (dirList.length > index && dirList[index + 1]) {
