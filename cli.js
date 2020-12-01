@@ -26,10 +26,15 @@ const cwd = process.cwd();
 
 const option = args._[0];
 
+const screenshot = async (props) => {
+  // eslint-disable-next-line global-require
+  await require('./src/screenshot/index')(props);
+  process.exit(0);
+}
+
 switch (option) {
   case 'screenshot':
-    // eslint-disable-next-line global-require
-    require('./src/screenshot/index')({ cwd, ...args });
+    screenshot({ cwd, ...args });
     break;
   case 'i18n-remove':
     // eslint-disable-next-line global-require
@@ -49,7 +54,8 @@ switch (option) {
       
       Options for the ${chalk.cyan('screenshot')} command:
         ${chalk.green('--path              ')} 区块的路径，可以用于只截图一个
-          
+        ${chalk.green('--mobile              ')} 使用手机大小的屏幕进行截图
+      
       Options for the ${chalk.cyan('i18n-remove')} command:
         ${chalk.green('--locale            ')} 设置语言
         ${chalk.green('--write            ')}  是否写入文件
