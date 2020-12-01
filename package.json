@@ -43,5 +43,8 @@
     "umi-utils": "^1.5.1",
     "yargs-parser": "^20.0.0"
   },
+  "resolutions": {
+    "underscore": "1.12.0"
+  },
   "devDependencies": {}
 }

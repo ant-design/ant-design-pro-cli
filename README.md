@@ -17,6 +17,7 @@ yarn add @ant-design/pro-cli
 ## Options for the screenshot command
 
 - --path 区块的路径，可以用于只截图一个
+- --mobile 使用手机大小的屏幕进行截图
 
 ## Options for the i18n-remove command
 
@@ -53,9 +54,9 @@ pro -h
 
 ### screenshot
 
-- pro screenshot
+- pro screenshot 
 - pro screenshot --path DashboardWorkplace
-
+- pro screenshot --mobile 
 ### i18n-remove
 
 - pro i18n-remove --write
