@@ -8,7 +8,7 @@ module.exports = [
         path: '/user',
         component: '../layouts/UserLayout',
         routes: [
-          { path: '/user/login', name: 'login', component: './User/Login' },
+          { path: '/user/login', name: 'login', component: './User/login' },
           {
             path: '/user/register',
             name: 'register',
