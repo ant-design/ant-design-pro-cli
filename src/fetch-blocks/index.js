@@ -53,6 +53,9 @@ const filterParentRouter = (route, layout) =>
       if (item.routes && (!route.component || layout)) {
         return { ...item, routes: filterParentRouter(item.routes, false) };
       }
+      if (item.path === '/user/login') {
+        return item;
+      }
       if (item.redirect) {
         return item;
       }
