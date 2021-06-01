@@ -150,6 +150,22 @@ const genAst = (ast, localeMap) => {
         }
       }
     },
+    CallExpression(p) {
+      if (p.container?.property?.name === 'formatMessage') {
+        const parent = p.parentPath
+        const { arguments: formatMessageArguments } = parent.container;
+        if (arguments && arguments.length) {
+          const params = {};
+          formatMessageArguments.forEach(node => {
+            node.properties.forEach(property => {
+              params[property.key.name] = property.value.value;
+            });
+          });
+          const message = genMessage(params, localeMap);
+          parent.parentPath.replaceWith(t.identifier(`'${message}'`));
+        }
+      }
+    },
   });
 };
 
