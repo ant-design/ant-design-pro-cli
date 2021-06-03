@@ -9,6 +9,8 @@ const ora = require('ora');
 const getLocalFileList = require('./getLocalFileList');
 const removeLocale = require('./removeLocale');
 const eslintJs = require('./eslintJs');
+const formatRoute = require('./formatRoute')
+
 
 const spinner = ora();
 
@@ -47,10 +49,14 @@ module.exports = ({ cwd, locale = 'zh-CN', write }) => {
   const localeMap = getLocalFileList(cwd, locale);
   spinner.succeed();
 
+  spinner.start(`✂️  format routes`)
+  formatRoute(localeMap, prettierCode)
+  spinner.succeed();
+
   tsFiles.forEach(path => {
     const source = getFileContent(join(cwd, path));
-    if (source.includes('formatMessage') || source.includes('FormattedMessage')) {
-      let content = removeLocale(source, localeMap);
+    if (source.includes('formatMessage') || source.includes('FormattedMessage') || source.includes('SelectLang') || path === 'config/config.ts') {
+      let content = removeLocale(source, localeMap, path);
       spinner.start(`✂️  remove locale for ${path}.`);
 
       if (write) {
