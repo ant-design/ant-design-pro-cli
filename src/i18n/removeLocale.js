@@ -31,65 +31,72 @@ const genMessage = ({ id, defaultMessage, values }, localeMap) => {
  * @param {*} ast
  * @param {*} localeMap
  */
-const genAst = (ast, localeMap) => {
+const genAst = (ast, localeMap, filePath) => {
   traverse.default(ast, {
     enter(path) {
-      // 删除  import { formatMessage } from 'umi-plugin-react/locale';
-      if (path.isImportDeclaration()) {
-        const { specifiers } = path.node;
-        if (path.node.specifiers) {
-          // 如果有 getLocale 和 setLocale 就不删除
-          const item = specifiers.find(
-            ({ imported }) =>
-              imported && (imported.name === 'getLocale' || imported.name === 'setLocale'),
-          );
-          if (item) {
-            path.node.specifiers = specifiers.filter(({ imported }) => {
-              if (imported) {
-                return imported.name !== 'formatMessage' && imported.name !== 'FormattedMessage';
-              }
-              return true;
-            });
-            return;
-          }
-        }
-        if (path.node.source.value === 'umi-plugin-react/locale') {
-          path.remove();
+
+      if (filePath === 'config/config.ts') {
+        if (path.isIdentifier({name: "locale"}) && path.container.value.type === 'ObjectExpression') {
+          // path.replaceWith(t.Identifier(''))
+          path.parentPath.remove()
         }
       }
 
+      if (path.isIdentifier({name: "useIntl"})) {
+        if (path.parentPath.parentPath.type === 'VariableDeclarator') {
+          path.parentPath.parentPath.remove()
+        }
+      }
+
+      if (path.isImportDeclaration()) {
+        const { specifiers } = path.node;
+        if (path.node.specifiers) {
+          path.node.specifiers = specifiers.filter(({ imported }) => {
+            if (imported) {
+              return imported.name !== 'formatMessage' && imported.name !== 'FormattedMessage' && imported.name !== 'useIntl' && imported.name !== 'SelectLang';
+            }
+            return true;
+          });
+        }
+       
+        if (path.node.source.value === 'umi-plugin-react/locale') {
+          path.remove();
+          return
+        }
+      }
       // 替换 formatMessage
       if (path.isIdentifier({ name: 'formatMessage' })) {
         const { arguments: formatMessageArguments } = path.container;
         if (!formatMessageArguments) {
-          // <ProLayout
-          //  footerRender={footerRender}
-          //  menuDataRender={menuDataRender}
-          //  formatMessage={formatMessage}
-          // >
-          //   {children}
-          // </ProLayout>
           if (path.parentPath.parentPath.type === 'JSXAttribute') {
             path.parentPath.parentPath.remove();
             return;
           }
-
-          // title={getPageTitle({
-          //   pathname: location.pathname,
-          //   breadcrumb,
-          //   formatMessage,
-          //   ...props,
-          // })}
           if (path.parentPath.type === 'ObjectProperty') {
             if (path.parentPath.isRemove) {
               return;
             }
             path.parentPath.remove();
-            // eslint-disable-next-line no-param-reassign
             path.parentPath.isRemove = true;
             return;
           }
-          return;
+          if (path.parentPath.type === 'MemberExpression' && path.parentPath.container.type === 'CallExpression' && path.parentPath.container.arguments) {
+            const {arguments: formatMessageArguments} = path.parentPath.container
+            const params = {};
+
+            formatMessageArguments.forEach(node => {
+              node.properties.forEach(property => {
+                params[property.key.name] = property.value.value;
+              });
+            });
+            const message = genMessage(params, localeMap);
+            let container = path.parentPath.parentPath;
+
+            if (message) {
+              container.replaceWith(t.identifier(`'${message}'`));
+            }
+          }
+          return
         }
         const params = {};
         formatMessageArguments.forEach(node => {
@@ -149,6 +156,20 @@ const genAst = (ast, localeMap) => {
           }
         }
       }
+      if (path.isJSXIdentifier({ name: 'data-lang' })) {
+        // path.parentPath.parentPath.replaceWith(t.JSXOpeningElement(t.JSXIdentifier('span'), [t.JSXAttribute(t.JSXIdentifier('data-lang-tag'))], true));
+        path.parentPath.parentPath.parentPath.remove()
+      }
+
+      if (path.isJSXIdentifier({ name: 'SelectLang' })) {
+        // path.parentPath.replaceWith(t.JSXOpeningElement(t.JSXIdentifier('span'), [t.JSXAttribute(t.JSXIdentifier('data-lang-tag'))], true));
+        path.parentPath.parentPath.remove()
+      }
+      
+      if (path.node.source?.value === 'umi' && !path.node.specifiers.length) {
+        path.remove()
+        return
+      }
     },
     CallExpression(p) {
       if (p.container?.property?.name === 'formatMessage') {
@@ -165,15 +186,16 @@ const genAst = (ast, localeMap) => {
           parent.parentPath.replaceWith(t.identifier(`'${message}'`));
         }
       }
-    },
+    }
+    
   });
 };
 
-module.exports = (code, localeMap) => {
+module.exports = (code, localeMap, filePath) => {
   const ast = parser.parse(code, {
     sourceType: 'module',
     plugins: ['jsx', 'typescript', 'dynamicImport', 'classProperties', 'decorators-legacy'],
   });
-  genAst(ast, localeMap);
+  genAst(ast, localeMap, filePath);
   return generateCode(ast);
 };
