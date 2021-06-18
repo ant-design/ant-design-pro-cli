@@ -166,13 +166,13 @@ const genAst = (ast, localeMap, filePath) => {
         path.parentPath.parentPath.remove()
       }
       
-      if (path.node.source?.value === 'umi' && !path.node.specifiers.length) {
+      if (path.node.source && path.node.source.value === 'umi' && !path.node.specifiers.length) {
         path.remove()
         return
       }
     },
     CallExpression(p) {
-      if (p.container?.property?.name === 'formatMessage') {
+      if (p.container && p.container.property && p.container.property.name === 'formatMessage') {
         const parent = p.parentPath
         const { arguments: formatMessageArguments } = parent.container;
         if (arguments && arguments.length) {
