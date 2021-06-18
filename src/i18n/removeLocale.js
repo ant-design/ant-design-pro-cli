@@ -177,14 +177,25 @@ const genAst = (ast, localeMap, filePath) => {
         // path.parentPath.replaceWith(t.JSXOpeningElement(t.JSXIdentifier('span'), [t.JSXAttribute(t.JSXIdentifier('data-lang-tag'))], true));
         path.parentPath.parentPath.remove();
       }
+<<<<<<< HEAD
 
       if (path.node.source && path.node.source.value === 'umi' && !path.node.specifiers.length) {
         path.remove();
+=======
+      
+      if (path.node.source && path.node.source.value === 'umi' && !path.node.specifiers.length) {
+        path.remove()
+        return
+>>>>>>> 兼容14以下node
       }
     },
     CallExpression(p) {
       if (p.container && p.container.property && p.container.property.name === 'formatMessage') {
+<<<<<<< HEAD
         const parent = p.parentPath;
+=======
+        const parent = p.parentPath
+>>>>>>> 兼容14以下node
         const { arguments: formatMessageArguments } = parent.container;
         // eslint-disable-next-line prefer-rest-params
         if (arguments && arguments.length) {
