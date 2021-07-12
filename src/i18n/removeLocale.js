@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const parser = require('@babel/parser');
 const traverse = require('@babel/traverse');
 const generate = require('@babel/generator');
@@ -34,17 +35,19 @@ const genMessage = ({ id, defaultMessage, values }, localeMap) => {
 const genAst = (ast, localeMap, filePath) => {
   traverse.default(ast, {
     enter(path) {
-
       if (filePath === 'config/config.ts') {
-        if (path.isIdentifier({name: "locale"}) && path.container.value.type === 'ObjectExpression') {
+        if (
+          path.isIdentifier({ name: 'locale' }) &&
+          path.container.value.type === 'ObjectExpression'
+        ) {
           // path.replaceWith(t.Identifier(''))
-          path.parentPath.remove()
+          path.parentPath.remove();
         }
       }
 
-      if (path.isIdentifier({name: "useIntl"})) {
+      if (path.isIdentifier({ name: 'useIntl' })) {
         if (path.parentPath.parentPath.type === 'VariableDeclarator') {
-          path.parentPath.parentPath.remove()
+          path.parentPath.parentPath.remove();
         }
       }
 
@@ -53,15 +56,20 @@ const genAst = (ast, localeMap, filePath) => {
         if (path.node.specifiers) {
           path.node.specifiers = specifiers.filter(({ imported }) => {
             if (imported) {
-              return imported.name !== 'formatMessage' && imported.name !== 'FormattedMessage' && imported.name !== 'useIntl' && imported.name !== 'SelectLang';
+              return (
+                imported.name !== 'formatMessage' &&
+                imported.name !== 'FormattedMessage' &&
+                imported.name !== 'useIntl' &&
+                imported.name !== 'SelectLang'
+              );
             }
             return true;
           });
         }
-       
+
         if (path.node.source.value === 'umi-plugin-react/locale') {
           path.remove();
-          return
+          return;
         }
       }
       // 替换 formatMessage
@@ -80,27 +88,31 @@ const genAst = (ast, localeMap, filePath) => {
             path.parentPath.isRemove = true;
             return;
           }
-          if (path.parentPath.type === 'MemberExpression' && path.parentPath.container.type === 'CallExpression' && path.parentPath.container.arguments) {
-            const {arguments: formatMessageArguments} = path.parentPath.container
+          if (
+            path.parentPath.type === 'MemberExpression' &&
+            path.parentPath.container.type === 'CallExpression' &&
+            path.parentPath.container.arguments
+          ) {
+            const { arguments: containerFormatMessageArguments } = path.parentPath.container;
             const params = {};
 
-            formatMessageArguments.forEach(node => {
-              node.properties.forEach(property => {
+            containerFormatMessageArguments.forEach((node) => {
+              node.properties.forEach((property) => {
                 params[property.key.name] = property.value.value;
               });
             });
             const message = genMessage(params, localeMap);
-            let container = path.parentPath.parentPath;
+            const container = path.parentPath.parentPath;
 
             if (message) {
               container.replaceWith(t.identifier(`'${message}'`));
             }
           }
-          return
+          return;
         }
         const params = {};
-        formatMessageArguments.forEach(node => {
-          node.properties.forEach(property => {
+        formatMessageArguments.forEach((node) => {
+          node.properties.forEach((property) => {
             params[property.key.name] = property.value.value;
           });
         });
@@ -131,7 +143,7 @@ const genAst = (ast, localeMap, filePath) => {
       if (path.isJSXIdentifier({ name: 'FormattedMessage' })) {
         const { attributes } = path.container;
         const params = {};
-        attributes.forEach(node => {
+        attributes.forEach((node) => {
           if (node.value.value) {
             params[node.name.name] = node.value.value;
           } else {
@@ -158,27 +170,27 @@ const genAst = (ast, localeMap, filePath) => {
       }
       if (path.isJSXIdentifier({ name: 'data-lang' })) {
         // path.parentPath.parentPath.replaceWith(t.JSXOpeningElement(t.JSXIdentifier('span'), [t.JSXAttribute(t.JSXIdentifier('data-lang-tag'))], true));
-        path.parentPath.parentPath.parentPath.remove()
+        path.parentPath.parentPath.parentPath.remove();
       }
 
       if (path.isJSXIdentifier({ name: 'SelectLang' })) {
         // path.parentPath.replaceWith(t.JSXOpeningElement(t.JSXIdentifier('span'), [t.JSXAttribute(t.JSXIdentifier('data-lang-tag'))], true));
-        path.parentPath.parentPath.remove()
+        path.parentPath.parentPath.remove();
       }
-      
-      if (path.node.source?.value === 'umi' && !path.node.specifiers.length) {
-        path.remove()
-        return
+
+      if (path.node.source && path.node.source.value === 'umi' && !path.node.specifiers.length) {
+        path.remove();
       }
     },
     CallExpression(p) {
-      if (p.container?.property?.name === 'formatMessage') {
-        const parent = p.parentPath
+      if (p.container && p.container.property && p.container.property.name === 'formatMessage') {
+        const parent = p.parentPath;
         const { arguments: formatMessageArguments } = parent.container;
+        // eslint-disable-next-line prefer-rest-params
         if (arguments && arguments.length) {
           const params = {};
-          formatMessageArguments.forEach(node => {
-            node.properties.forEach(property => {
+          formatMessageArguments.forEach((node) => {
+            node.properties.forEach((property) => {
               params[property.key.name] = property.value.value;
             });
           });
@@ -186,8 +198,7 @@ const genAst = (ast, localeMap, filePath) => {
           parent.parentPath.replaceWith(t.identifier(`'${message}'`));
         }
       }
-    }
-    
+    },
   });
 };
 
