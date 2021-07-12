@@ -4,7 +4,7 @@ module.exports = [
     path: '/user',
     layout: false,
     routes: [
-      { path: '/user/login', layout: false, name: 'login', component: './User/Login' },
+      { path: '/user/login', layout: false, name: 'login', component: './user/Login' },
       {
         path: '/user/register',
         name: 'register',
