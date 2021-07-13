@@ -4,7 +4,7 @@ module.exports = [
     path: '/user',
     layout: false,
     routes: [
-      { path: '/user/login', layout: false, name: 'login', component: './User/Login' },
+      { path: '/user/login', layout: false, name: 'login', component: './user/Login' },
       {
         path: '/user/register',
         name: 'register',
@@ -44,6 +44,7 @@ module.exports = [
         name: 'workplace',
         component: './Dashboard/Workplace',
       },
+      { path: '/dashboard', redirect: '/dashboard/analysis' },
     ],
   },
   // forms
@@ -67,6 +68,7 @@ module.exports = [
         name: 'advancedform',
         component: './Form/AdvancedForm',
       },
+      { path: '/form', redirect: '/form/basic-form' },
     ],
   },
   // list
@@ -116,6 +118,7 @@ module.exports = [
           },
         ],
       },
+      { path: '/list', redirect: '/list/table-list' },
     ],
   },
   {
@@ -139,6 +142,7 @@ module.exports = [
         name: 'advanced',
         component: './Profile/AdvancedProfile',
       },
+      { path: '/profile', redirect: '/profile/basic' },
     ],
   },
   {
@@ -157,6 +161,7 @@ module.exports = [
         name: 'fail',
         component: './Result/Error',
       },
+      { path: '/result', redirect: '/result/success' },
     ],
   },
   {
@@ -180,6 +185,7 @@ module.exports = [
         name: 'server-error',
         component: './Exception/500',
       },
+      { path: '/exception', redirect: '/exception/403' },
     ],
   },
   {
@@ -197,6 +203,7 @@ module.exports = [
         name: 'settings',
         component: './Account/Settings/Info',
       },
+      { path: '/account', redirect: '/account/center' },
     ],
   },
   //  editor
@@ -220,6 +227,7 @@ module.exports = [
         name: 'koni',
         component: './Editor/GGEditor/Koni',
       },
+      { path: '/editor', redirect: '/editor/flow' },
     ],
   },
   {

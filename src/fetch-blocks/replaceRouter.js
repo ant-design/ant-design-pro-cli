@@ -17,11 +17,11 @@ const getNewRouteCode = (configPath, newRoute) => {
     Program({ node }) {
       // find import
       const { body } = node;
-      body.forEach(item => {
+      body.forEach((item) => {
         if (t.isImportDeclaration(item)) {
           const { specifiers } = item;
           const defaultEpecifier = specifiers.find(
-            s => t.isImportDefaultSpecifier(s) && t.isIdentifier(s.local),
+            (s) => t.isImportDefaultSpecifier(s) && t.isIdentifier(s.local),
           );
           if (defaultEpecifier && t.isStringLiteral(item.source)) {
             importModules.push({
@@ -39,11 +39,12 @@ const getNewRouteCode = (configPath, newRoute) => {
         return;
       }
       const { properties } = node;
-      properties.forEach(p => {
+      properties.forEach((p) => {
         const { key, value } = p;
         if (t.isObjectProperty(p) && t.isIdentifier(key) && key.name === 'routes') {
           if (value) {
             // find json file program expression
+            // eslint-disable-next-line no-param-reassign
             p.value = parser.parse(JSON.stringify(newRoute)).program.body[0].expression;
             routesNode = value;
           }
@@ -52,6 +53,7 @@ const getNewRouteCode = (configPath, newRoute) => {
     },
   });
   if (routesNode) {
+    // eslint-disable-next-line no-use-before-define
     const code = generateCode(ast);
     return { code, routesPath: configPath };
   }
