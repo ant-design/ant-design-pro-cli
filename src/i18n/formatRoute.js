@@ -1,18 +1,19 @@
 const fs = require('fs')
 const path = require('path')
-
+const { getFile } = require('./utils')
 
 module.exports = (localeMap, prettierCode) => {
-  const absolutePath = process.cwd()
-  let content
-  if (fs.existsSync(path.join(absolutePath, '/config/routes.ts'))) {
-    content = fs.readFileSync(path.join(absolutePath, '/config/routes.ts'), 'utf-8')
-  } else if (fs.existsSync(path.join(absolutePath, '/config/routes.js'))) {
-    content = fs.readFileSync(path.join(absolutePath, '/config/routes.js'), 'utf-8')
-  } else return
+  const base = `${process.cwd()}/config/`
+  const file = getFile({
+    type: 'javascript',
+    fileNameWithoutExt: 'routes',
+    base
+  })
+  if (!file) return
+  const content = fs.readFileSync(file.absolutePath, 'utf-8')
   const formatContent = content.replace('export default', 'module.exports =')
   fs.writeFileSync('./routes.js', formatContent)
-  const routes = require(path.join(absolutePath, '/routes.js'))
+  const routes = require(path.join(process.cwd(), '/routes.js'))
 
   const loopFn = (routes, parentName) => {
     routes.forEach(route => {
@@ -27,9 +28,8 @@ module.exports = (localeMap, prettierCode) => {
     })
   }
   loopFn(routes, 'menu')
-  
-  const result = prettierCode(`export default ${JSON.stringify(routes)}`, path.join(absolutePath, '/config/routes.ts'))
-  fs.writeFileSync(path.join(absolutePath, '/config/routes.ts'), result)
-  fs.unlinkSync(path.join(absolutePath, '/routes.js'))
+  const result = prettierCode(`export default ${JSON.stringify(routes)}`, file.absolutePath)
+  fs.writeFileSync(file.absolutePath, result)
+  fs.unlinkSync(path.join(process.cwd(), '/routes.js'))
 }
 
