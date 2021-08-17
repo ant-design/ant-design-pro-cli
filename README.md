@@ -54,9 +54,11 @@ pro -h
 
 ### screenshot
 
-- pro screenshot 
-- pro screenshot --path DashboardWorkplace
-- pro screenshot --mobile 
+- pro screenshot 对所有区块进行截图
+- pro screenshot --path DashboardWorkplace 对单个区块进行截图
+- pro screenshot --mobile 对所有区块进行截图
+- pro screenshot --dumi 使用 dumi 构建的资产，支持手机模式
+
 ### i18n-remove
 
 - pro i18n-remove --write
