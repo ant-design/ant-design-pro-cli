@@ -32,9 +32,19 @@ const screenshot = async (props) => {
   process.exit(0);
 }
 
+const screenshotDumi = async (props) => {
+  // eslint-disable-next-line global-require
+  await require('./src/screenshot/dumi')(props);
+  process.exit(0);
+}
+
 switch (option) {
   case 'screenshot':
-    screenshot({ cwd, ...args });
+    if (args.dumi) {
+      screenshotDumi({ cwd, ...args });
+    } else {
+      screenshot({ cwd, ...args });
+    }
     break;
   case 'i18n-remove':
     // eslint-disable-next-line global-require
