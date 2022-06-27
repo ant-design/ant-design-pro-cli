@@ -30,13 +30,13 @@ const screenshot = async (props) => {
   // eslint-disable-next-line global-require
   await require('./src/screenshot/index')(props);
   process.exit(0);
-}
+};
 
 const screenshotDumi = async (props) => {
   // eslint-disable-next-line global-require
   await require('./src/screenshot/dumi')(props);
   process.exit(0);
-}
+};
 
 switch (option) {
   case 'screenshot':
@@ -53,6 +53,11 @@ switch (option) {
   case 'fetch-blocks':
     // eslint-disable-next-line global-require
     require('./src/fetch-blocks/index')({ cwd, ...args });
+    break;
+  case 'create':
+    const name = args._[1] || '';
+    // eslint-disable-next-line global-require
+    require('./src/create/index')({ cwd, name, ...args });
     break;
   default:
     if (args.h || args.help) {

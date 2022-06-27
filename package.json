@@ -2,6 +2,10 @@
   "name": "@ant-design/pro-cli",
   "version": "2.1.5",
   "description": "The command tool for ant design pro",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ant-design/ant-design-pro-cli"
+  },
   "bin": {
     "pro": "./cli.js"
   },
@@ -9,9 +13,8 @@
     "src",
     "cli.js"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ant-design/ant-design-pro-cli"
+  "resolutions": {
+    "underscore": "1.12.0"
   },
   "dependencies": {
     "@babel/core": "^7.5.4",
@@ -27,6 +30,7 @@
     "cross-port-killer": "^1.1.1",
     "eslint": "^7.1.0",
     "execa": "^5.0.0",
+    "fs-extra": "^10.1.0",
     "getnpmregistry": "^1.0.1",
     "glob": "^7.1.4",
     "import-fresh": "^3.1.0",
@@ -41,10 +45,9 @@
     "semver": "^7.0.0",
     "typescript": "^4.0.3",
     "umi-utils": "^1.5.1",
-    "yargs-parser": "^20.0.0"
-  },
-  "resolutions": {
-    "underscore": "1.12.0"
+    "yargs-parser": "^20.0.0",
+    "yeoman-environment": "^3.9.1",
+    "yeoman-generator": "^5.6.1"
   },
   "devDependencies": {}
 }
