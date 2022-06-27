@@ -91,6 +91,9 @@ switch (option) {
         ${chalk.gray('fetch-blocks')}
         pro fetch-blocks
 
+        ${chalk.gray('fetch-blocks')}
+        pro create demo_path
+
         `.trim();
       console.log(details);
     }

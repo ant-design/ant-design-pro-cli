@@ -44,6 +44,13 @@ class AntDesignProGenerator extends BasicGenerator {
       {
         name: 'allBlocks',
         type: 'list',
+        when: ({ version }) => {
+          if (version === 'umi@4') {
+            console.log('🧎🏻全量区块暂时不支持 umi@4');
+            return false;
+          }
+          return true;
+        },
         message: '🚀 要全量的还是一个简单的脚手架?',
         choices: ['simple', 'complete'],
         default: 'simple',
