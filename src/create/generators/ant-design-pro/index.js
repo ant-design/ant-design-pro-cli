@@ -26,9 +26,9 @@ function globList(patternList, options) {
 const getGithubUrl = async () => {
   const fastGithub = await getFastGithub();
   if (fastGithub === 'gitee.com' || fastGithub === 'github.com.cnpmjs.org') {
-    return 'https://gitee.com/ant-design/ant-design-pro';
+    return 'git@gitee.com:ant-design/ant-design-pro.git';
   }
-  return 'https://github.com/ant-design/ant-design-pro';
+  return 'git@github.com:ant-design/ant-design-pro.git';
 };
 
 class AntDesignProGenerator extends BasicGenerator {
