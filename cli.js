@@ -59,6 +59,10 @@ switch (option) {
     // eslint-disable-next-line global-require
     require('./src/create/index')({ cwd, name, ...args });
     break;
+  case 'pro-components-codemod':
+    // eslint-disable-next-line global-require
+    require('./src/pro-components-codemod/index')({ cwd, ...args });
+    break;
   default:
     if (args.h || args.help) {
       const details = `
@@ -66,6 +70,7 @@ switch (option) {
         ${chalk.cyan('screenshot ')}     对区块进行截图
         ${chalk.cyan('i18n-remove')}     从项目中移除国际化
         ${chalk.cyan('fetch-blocks')}    下载 pro 所有的官方区块
+        ${chalk.cyan('pro-components-codemod')}    自动更新 pro-components 的 import 方式
       
       Options for the ${chalk.cyan('screenshot')} command:
         ${chalk.green('--path              ')} 区块的路径，可以用于只截图一个
@@ -74,6 +79,11 @@ switch (option) {
       Options for the ${chalk.cyan('i18n-remove')} command:
         ${chalk.green('--locale            ')} 设置语言
         ${chalk.green('--write            ')}  是否写入文件
+
+      Options for the ${chalk.cyan('pro-components-codemod')} command:
+        ${chalk.green('--writePkg          ')} 是否更新 package.json 中的 dependencies
+        ${chalk.green('--path          ')}     更新 pro-components import 的路径
+        ${chalk.green('--cleanup          ')}  是否开启 cleanup 模式，多个 import 合并为 单个 import
       
       Examples:
         ${chalk.gray('pro')}
@@ -93,6 +103,10 @@ switch (option) {
 
         ${chalk.gray('fetch-blocks')}
         pro create demo_path
+
+        ${chalk.gray('pro-components-codemod')}
+        pro pro-components-codemod --writePkg
+        pro pro-components-codemod --path src --cleanup
 
         `.trim();
       console.log(details);
