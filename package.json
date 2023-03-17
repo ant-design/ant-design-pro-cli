@@ -28,7 +28,7 @@
     "carlo": "^0.9.46",
     "chalk": "^4.0.0",
     "cross-port-killer": "^1.1.1",
-    "eslint": "^7.1.0",
+    "eslint": "^8.36.0",
     "execa": "^5.0.0",
     "fs-extra": "^10.1.0",
     "getnpmregistry": "^1.0.1",
