@@ -4,7 +4,7 @@ const chalk = require('chalk');
 const mkdirp = require('mkdirp');
 const yeoman = require('yeoman-environment');
 
-const runGenerator = async (generatorPath, { name = '', cwd = process.cwd(), args = {} }) => {
+const runGenerator = async (generatorPath, { name = '', cwd = process.cwd(), ...args }) => {
   return new Promise((resolve) => {
     if (name) {
       mkdirp.sync(name);

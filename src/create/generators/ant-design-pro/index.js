@@ -23,12 +23,22 @@ function globList(patternList, options) {
   return fileList;
 }
 
-const getGithubUrl = async () => {
+const getGithubUrl = async (origin = "") => {
+  const githubUrl = 'https://github.com/ant-design/ant-design-pro';
+  const giteeUrl = 'https://gitee.com/ant-design/ant-design-pro';
+  // 通过 --origin=xxx指定源
+  if (origin === "github") {
+    return githubUrl
+  }
+  if (origin === "gitee") {
+    return giteeUrl
+  }
+  // 不指定源
   const fastGithub = await getFastGithub();
   if (fastGithub === 'gitee.com' || fastGithub === 'github.com.cnpmjs.org') {
-    return 'https://gitee.com/ant-design/ant-design-pro';
+    return giteeUrl;
   }
-  return 'https://github.com/ant-design/ant-design-pro';
+  return githubUrl;
 };
 
 class AntDesignProGenerator extends BasicGenerator {
@@ -71,7 +81,7 @@ class AntDesignProGenerator extends BasicGenerator {
       cwd: projectPath,
     };
 
-    const githubUrl = await getGithubUrl();
+    const githubUrl = await getGithubUrl(this.opts.args.origin);
     const gitArgs = [`clone`, githubUrl, `--depth=1`];
 
     // all-blocks 分支上包含了所有的区块
@@ -105,6 +115,7 @@ class AntDesignProGenerator extends BasicGenerator {
 
     // Clone remote branch
     // log(`git ${[`clone`, githubUrl].join(' ')}`);
+    log(`clone repo url: ${githubUrl}`)
     await exec(
       `git`,
       gitArgs,
