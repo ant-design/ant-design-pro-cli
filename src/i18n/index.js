@@ -8,7 +8,6 @@ const ora = require('ora');
 
 const getLocalFileList = require('./getLocalFileList');
 const removeLocale = require('./removeLocale');
-const eslintJs = require('./eslintJs');
 const formatRoute = require('./formatRoute')
 
 
@@ -60,7 +59,7 @@ module.exports = ({ cwd, locale = 'zh-CN', write }) => {
       spinner.start(`✂️  remove locale for ${path}.`);
 
       if (write) {
-        content = prettierCode(eslintJs(content), path);
+        content = prettierCode(content, path);
         fs.writeFileSync(join(cwd, path), content, 'utf-8');
         spinner.succeed();
         return;
