@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const parser = require('@babel/parser');
 const traverse = require('@babel/traverse');
 const generate = require('@babel/generator');
@@ -36,15 +35,18 @@ const genAst = (ast, localeMap, filePath) => {
   traverse.default(ast, {
     enter(path) {
       if (filePath === 'config/config.ts') {
-        if (path.isIdentifier({name: "locale"}) && path.container.value.type === 'ObjectExpression') {
+        if (
+          path.isIdentifier({ name: 'locale' }) &&
+          path.container.value.type === 'ObjectExpression'
+        ) {
           // path.replaceWith(t.Identifier(''))
-          path.parentPath.remove()
+          path.parentPath.remove();
         }
       }
 
-      if (path.isIdentifier({name: "useIntl"})) {
+      if (path.isIdentifier({ name: 'useIntl' })) {
         if (path.parentPath.parentPath.type === 'VariableDeclarator') {
-          path.parentPath.parentPath.remove()
+          path.parentPath.parentPath.remove();
         }
       }
 
@@ -65,7 +67,7 @@ const genAst = (ast, localeMap, filePath) => {
         }
         if (path.node.source.value === 'umi-plugin-react/locale') {
           path.remove();
-          return
+          return;
         }
       }
       // 替换 formatMessage
@@ -105,7 +107,7 @@ const genAst = (ast, localeMap, filePath) => {
               container.replaceWith(t.identifier(`'${message}'`));
             }
           }
-          return
+          return;
         }
         const params = {};
         formatMessageArguments.forEach((node) => {
@@ -167,22 +169,21 @@ const genAst = (ast, localeMap, filePath) => {
       }
       if (path.isJSXIdentifier({ name: 'data-lang' })) {
         // path.parentPath.parentPath.replaceWith(t.JSXOpeningElement(t.JSXIdentifier('span'), [t.JSXAttribute(t.JSXIdentifier('data-lang-tag'))], true));
-        path.parentPath.parentPath.parentPath.remove()
+        path.parentPath.parentPath.parentPath.remove();
       }
 
       if (path.isJSXIdentifier({ name: 'SelectLang' })) {
         // path.parentPath.replaceWith(t.JSXOpeningElement(t.JSXIdentifier('span'), [t.JSXAttribute(t.JSXIdentifier('data-lang-tag'))], true));
-        path.parentPath.parentPath.remove()
+        path.parentPath.parentPath.remove();
       }
-      
+
       if (path.node.source && path.node.source.value === 'umi' && !path.node.specifiers.length) {
-        path.remove()
-        return
+        path.remove();
+        return;
       }
     },
     CallExpression(p) {
       if (p.container && p.container.property && p.container.property.name === 'formatMessage') {
-
         const parent = p.parentPath;
         const { arguments: formatMessageArguments } = parent.container;
         // eslint-disable-next-line prefer-rest-params
@@ -197,8 +198,7 @@ const genAst = (ast, localeMap, filePath) => {
           parent.parentPath.replaceWith(t.identifier(`'${message}'`));
         }
       }
-    }
-    
+    },
   });
 };
 
