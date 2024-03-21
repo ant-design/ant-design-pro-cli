@@ -40,6 +40,7 @@ const genAst = (ast, localeMap, filePath) => {
           path.container.value.type === 'ObjectExpression'
         ) {
           // path.replaceWith(t.Identifier(''))
+          path.container.leadingComments = null;
           path.parentPath.remove();
         }
       }
