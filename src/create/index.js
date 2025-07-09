@@ -32,7 +32,7 @@ const runGenerator = async (generatorPath, { name = '', cwd = process.cwd(), ...
 
 const run = async (config) => {
   try {
-    return await runGenerator(`./generators/ant-design-pro`, config);
+    return runGenerator(`./generators/ant-design-pro`, config);
   } catch (e) {
     console.error(chalk.red(`> Generate failed`), e);
     process.exit(1);

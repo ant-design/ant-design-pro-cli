@@ -23,15 +23,15 @@ function globList(patternList, options) {
   return fileList;
 }
 
-const getGithubUrl = async (origin = "") => {
+const getGithubUrl = async (origin = '') => {
   const githubUrl = 'https://github.com/ant-design/ant-design-pro';
   const giteeUrl = 'https://gitee.com/ant-design/ant-design-pro';
   // 通过 --origin=xxx指定源
-  if (origin === "github") {
-    return githubUrl
+  if (origin === 'github') {
+    return githubUrl;
   }
-  if (origin === "gitee") {
-    return giteeUrl
+  if (origin === 'gitee') {
+    return giteeUrl;
   }
   // 不指定源
   const fastGithub = await getFastGithub();
@@ -45,22 +45,8 @@ class AntDesignProGenerator extends BasicGenerator {
   prompting() {
     const prompts = [
       {
-        name: 'version',
-        type: 'list',
-        message: '🐂 使用 umi@4 还是 umi@3 ?',
-        choices: ['umi@4', 'umi@3'],
-        default: 'umi@4',
-      },
-      {
         name: 'allBlocks',
         type: 'list',
-        when: ({ version }) => {
-          if (version === 'umi@4') {
-            console.log('🧎🏻全量区块暂时不支持 umi@4');
-            return false;
-          }
-          return true;
-        },
         message: '🚀 要全量的还是一个简单的脚手架?',
         choices: ['simple', 'complete'],
         default: 'simple',
@@ -72,7 +58,7 @@ class AntDesignProGenerator extends BasicGenerator {
   }
 
   async writing() {
-    const { allBlocks, version } = this.prompts;
+    const { allBlocks } = this.prompts;
 
     const projectName = this.opts.name || this.opts.env.cwd;
     const projectPath = path.resolve(projectName);
@@ -87,9 +73,7 @@ class AntDesignProGenerator extends BasicGenerator {
     // all-blocks 分支上包含了所有的区块
     if (allBlocks === 'complete') {
       log(`🙈 complete mode can only use the version of antd@4`);
-      gitArgs.push('--branch', 'v6-all-block');
-    } else if (version === 'umi@3') {
-      gitArgs.push('--branch', 'umi@3');
+      gitArgs.push('--branch', 'all-blocks');
     }
 
     gitArgs.push(projectName);
@@ -115,7 +99,7 @@ class AntDesignProGenerator extends BasicGenerator {
 
     // Clone remote branch
     // log(`git ${[`clone`, githubUrl].join(' ')}`);
-    log(`clone repo url: ${githubUrl}`)
+    log(`clone repo url: ${githubUrl}`);
     await exec(
       `git`,
       gitArgs,
