@@ -72,7 +72,6 @@ class AntDesignProGenerator extends BasicGenerator {
 
     // all-blocks 分支上包含了所有的区块
     if (allBlocks === 'complete') {
-      log(`🙈 complete mode can only use the version of antd@4`);
       gitArgs.push('--branch', 'all-blocks');
     }
 
