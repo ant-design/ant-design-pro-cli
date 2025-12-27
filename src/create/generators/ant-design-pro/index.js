@@ -43,12 +43,41 @@ const getGithubUrl = async (origin = '') => {
 
 class AntDesignProGenerator extends BasicGenerator {
   prompting() {
+    const TEMPLATES = [
+      { name: 'simple', description: '简单脚手架，只包含基础框架' },
+      { name: 'complete', description: '全量版本，包含所有区块和功能' },
+    ];
+
+    // 列出可用模板
+    if (this.opts.args.listTemplates) {
+      console.log(`\nAvailable templates for ${chalk.green('create')} command:\n`);
+      TEMPLATES.forEach((t) => {
+        console.log(`  ${chalk.cyan(t.name.padEnd(12))} ${chalk.gray(t.description)}`);
+      });
+      console.log(`\nUsage: pro create <project-name> --template <template>\n`);
+      process.exit(0);
+    }
+
+    // 支持非交互式模式：通过 --template 参数指定模板类型
+    const template = this.opts.args.template;
+    if (template) {
+      const validTemplates = TEMPLATES.map((t) => t.name);
+      if (!validTemplates.includes(template)) {
+        console.log(chalk.red(`Invalid template: ${template}.`));
+        console.log(`Valid templates: ${validTemplates.join(', ')}`);
+        console.log(`Run ${chalk.cyan('pro create --list-templates')} to see all options.`);
+        process.exit(1);
+      }
+      this.prompts = { allBlocks: template };
+      return Promise.resolve();
+    }
+
     const prompts = [
       {
         name: 'allBlocks',
         type: 'list',
         message: '🚀 要全量的还是一个简单的脚手架?',
-        choices: ['simple', 'complete'],
+        choices: TEMPLATES.map((t) => t.name),
         default: 'simple',
       },
     ];
