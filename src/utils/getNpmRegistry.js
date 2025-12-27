@@ -9,21 +9,24 @@ const registryMap = {
  * 并发请求多个 registry，返回最快响应的那个
  */
 const getNpmRegistry = async () => {
-  return new Promise((resolve) => {
-    Object.keys(registryMap).forEach(async (key) => {
-      try {
-        await fetch(registryMap[key], { timeout: 5000 });
-        resolve(registryMap[key]);
-      } catch {
-        // ignore
-      }
-    });
+  const timeout = 5000;
 
-    // 5秒后如果都没响应，默认使用 npm 官方
-    setTimeout(() => {
-      resolve(registryMap.npm);
-    }, 5000);
-  });
+  const fetchWithTimeout = (url) =>
+    Promise.race([
+      fetch(url).then(() => url),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), timeout)
+      ),
+    ]);
+
+  try {
+    return await Promise.race(
+      Object.values(registryMap).map((url) => fetchWithTimeout(url))
+    );
+  } catch {
+    // 所有请求都失败或超时，使用 npm 官方
+    return registryMap.npm;
+  }
 };
 
 module.exports = getNpmRegistry;
