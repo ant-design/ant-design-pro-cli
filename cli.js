@@ -67,46 +67,66 @@ switch (option) {
     if (args.h || args.help) {
       const details = `
       Commands:
+        ${chalk.cyan('create')}          创建新的 Ant Design Pro 项目
         ${chalk.cyan('screenshot ')}     对区块进行截图
         ${chalk.cyan('i18n-remove')}     从项目中移除国际化
         ${chalk.cyan('fetch-blocks')}    下载 pro 所有的官方区块
         ${chalk.cyan('pro-components-codemod')}    自动更新 pro-components 的 import 方式
-      
+
+      Options for the ${chalk.cyan('create')} command:
+        ${chalk.green('--list-templates    ')} 列出可用的模板
+        ${chalk.green('--template          ')} 模板类型（非交互式模式）
+        ${chalk.green('--origin            ')} 指定源: github 或 gitee
+
       Options for the ${chalk.cyan('screenshot')} command:
         ${chalk.green('--path              ')} 区块的路径，可以用于只截图一个
-        ${chalk.green('--mobile              ')} 使用手机大小的屏幕进行截图
-      
+        ${chalk.green('--mobile            ')} 使用手机大小的屏幕进行截图
+
       Options for the ${chalk.cyan('i18n-remove')} command:
         ${chalk.green('--locale            ')} 设置语言
-        ${chalk.green('--write            ')}  是否写入文件
+        ${chalk.green('--write             ')} 是否写入文件
 
       Options for the ${chalk.cyan('pro-components-codemod')} command:
         ${chalk.green('--writePkg          ')} 是否更新 package.json 中的 dependencies
-        ${chalk.green('--path          ')}     更新 pro-components import 的路径
-        ${chalk.green('--cleanup          ')}  是否开启 cleanup 模式，多个 import 合并为 单个 import
-      
+        ${chalk.green('--path              ')} 更新 pro-components import 的路径
+        ${chalk.green('--cleanup           ')} 是否开启 cleanup 模式，多个 import 合并为 单个 import
+        ${chalk.green('--list-versions     ')} 列出可用的 pro-components 版本
+        ${chalk.green('--version           ')} 指定 pro-components 版本（非交互式模式，可用 latest）
+
       Examples:
         ${chalk.gray('pro')}
         pro -h
 
+        ${chalk.gray('create (list available templates)')}
+        pro create --list-templates
+
+        ${chalk.gray('create (interactive)')}
+        pro create myapp
+
+        ${chalk.gray('create (non-interactive)')}
+        pro create myapp --template simple
+        pro create myapp --template complete
+
         ${chalk.gray('screenshot')}
-        pro screenshot 
+        pro screenshot
         pro screenshot --path DashboardWorkplace
-      
+
         ${chalk.gray('i18n-remove')}
         pro i18n-remove --write
-
         pro i18n-remove --locale en-US --write
-      
+
         ${chalk.gray('fetch-blocks')}
         pro fetch-blocks
 
-        ${chalk.gray('fetch-blocks')}
-        pro create demo_path
-
-        ${chalk.gray('pro-components-codemod')}
+        ${chalk.gray('pro-components-codemod (interactive)')}
         pro pro-components-codemod --writePkg
-        pro pro-components-codemod --path src --cleanup
+
+        ${chalk.gray('pro-components-codemod (list available versions)')}
+        pro pro-components-codemod --list-versions
+
+        ${chalk.gray('pro-components-codemod (non-interactive)')}
+        pro pro-components-codemod --version latest
+        pro pro-components-codemod --version 2.6.0 --path src --cleanup
 
         `.trim();
       console.log(details);
