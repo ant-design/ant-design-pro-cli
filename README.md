@@ -1,5 +1,12 @@
 # Cli for Ant Design Pro
 
+[![NPM version][npm-image]][npm-url] [![NPM downloads][download-image]][download-url]
+
+[npm-image]: https://img.shields.io/npm/v/@ant-design/pro-cli.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@ant-design/pro-cli
+[download-image]: https://img.shields.io/npm/dm/@ant-design/pro-cli.svg?style=flat-square
+[download-url]: https://npmjs.org/package/@ant-design/pro-cli
+
 ## Install
 
 ```shell

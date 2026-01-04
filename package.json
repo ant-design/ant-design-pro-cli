@@ -1,6 +1,6 @@
 {
   "name": "@ant-design/pro-cli",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "description": "The command tool for ant design pro",
   "repository": {
     "type": "git",
@@ -13,8 +13,8 @@
     "src",
     "cli.js"
   ],
-  "resolutions": {
-    "underscore": "1.12.0"
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "@babel/core": "^7.23.7",
